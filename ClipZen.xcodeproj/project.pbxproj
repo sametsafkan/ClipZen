@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		23D3EEDB2D58E56200D1D8E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23D3EEBF2D58E56100D1D8E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23D3EEC62D58E56100D1D8E0;
+			remoteInfo = ClipZen;
+		};
+		23D3EEE52D58E56200D1D8E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23D3EEBF2D58E56100D1D8E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23D3EEC62D58E56100D1D8E0;
+			remoteInfo = ClipZen;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		23D3EEC72D58E56100D1D8E0 /* ClipZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23D3EEDA2D58E56200D1D8E0 /* ClipZenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23D3EEE42D58E56200D1D8E0 /* ClipZenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		23D3EEC92D58E56100D1D8E0 /* ClipZen */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClipZen;
+			sourceTree = "<group>";
+		};
+		23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClipZenTests;
+			sourceTree = "<group>";
+		};
+		23D3EEE72D58E56200D1D8E0 /* ClipZenUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClipZenUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23D3EEC42D58E56100D1D8E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EED72D58E56200D1D8E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EEE12D58E56200D1D8E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23D3EEBE2D58E56100D1D8E0 = {
+			isa = PBXGroup;
+			children = (
+				23D3EEC92D58E56100D1D8E0 /* ClipZen */,
+				23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */,
+				23D3EEE72D58E56200D1D8E0 /* ClipZenUITests */,
+				23D3EEC82D58E56100D1D8E0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		23D3EEC82D58E56100D1D8E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23D3EEC72D58E56100D1D8E0 /* ClipZen.app */,
+				23D3EEDA2D58E56200D1D8E0 /* ClipZenTests.xctest */,
+				23D3EEE42D58E56200D1D8E0 /* ClipZenUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23D3EEC62D58E56100D1D8E0 /* ClipZen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23D3EEEE2D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZen" */;
+			buildPhases = (
+				23D3EEC32D58E56100D1D8E0 /* Sources */,
+				23D3EEC42D58E56100D1D8E0 /* Frameworks */,
+				23D3EEC52D58E56100D1D8E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				23D3EEC92D58E56100D1D8E0 /* ClipZen */,
+			);
+			name = ClipZen;
+			packageProductDependencies = (
+			);
+			productName = ClipZen;
+			productReference = 23D3EEC72D58E56100D1D8E0 /* ClipZen.app */;
+			productType = "com.apple.product-type.application";
+		};
+		23D3EED92D58E56200D1D8E0 /* ClipZenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23D3EEF12D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZenTests" */;
+			buildPhases = (
+				23D3EED62D58E56200D1D8E0 /* Sources */,
+				23D3EED72D58E56200D1D8E0 /* Frameworks */,
+				23D3EED82D58E56200D1D8E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23D3EEDC2D58E56200D1D8E0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */,
+			);
+			name = ClipZenTests;
+			packageProductDependencies = (
+			);
+			productName = ClipZenTests;
+			productReference = 23D3EEDA2D58E56200D1D8E0 /* ClipZenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		23D3EEE32D58E56200D1D8E0 /* ClipZenUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23D3EEF42D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZenUITests" */;
+			buildPhases = (
+				23D3EEE02D58E56200D1D8E0 /* Sources */,
+				23D3EEE12D58E56200D1D8E0 /* Frameworks */,
+				23D3EEE22D58E56200D1D8E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23D3EEE62D58E56200D1D8E0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				23D3EEE72D58E56200D1D8E0 /* ClipZenUITests */,
+			);
+			name = ClipZenUITests;
+			packageProductDependencies = (
+			);
+			productName = ClipZenUITests;
+			productReference = 23D3EEE42D58E56200D1D8E0 /* ClipZenUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23D3EEBF2D58E56100D1D8E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					23D3EEC62D58E56100D1D8E0 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					23D3EED92D58E56200D1D8E0 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 23D3EEC62D58E56100D1D8E0;
+					};
+					23D3EEE32D58E56200D1D8E0 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 23D3EEC62D58E56100D1D8E0;
+					};
+				};
+			};
+			buildConfigurationList = 23D3EEC22D58E56100D1D8E0 /* Build configuration list for PBXProject "ClipZen" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23D3EEBE2D58E56100D1D8E0;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 23D3EEC82D58E56100D1D8E0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23D3EEC62D58E56100D1D8E0 /* ClipZen */,
+				23D3EED92D58E56200D1D8E0 /* ClipZenTests */,
+				23D3EEE32D58E56200D1D8E0 /* ClipZenUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23D3EEC52D58E56100D1D8E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EED82D58E56200D1D8E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EEE22D58E56200D1D8E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23D3EEC32D58E56100D1D8E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EED62D58E56200D1D8E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23D3EEE02D58E56200D1D8E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		23D3EEDC2D58E56200D1D8E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23D3EEC62D58E56100D1D8E0 /* ClipZen */;
+			targetProxy = 23D3EEDB2D58E56200D1D8E0 /* PBXContainerItemProxy */;
+		};
+		23D3EEE62D58E56200D1D8E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23D3EEC62D58E56100D1D8E0 /* ClipZen */;
+			targetProxy = 23D3EEE52D58E56200D1D8E0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		23D3EEEC2D58E56200D1D8E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		23D3EEED2D58E56200D1D8E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		23D3EEEF2D58E56200D1D8E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClipZen/ClipZen.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClipZen/Preview Content\"";
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		23D3EEF02D58E56200D1D8E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ClipZen/ClipZen.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClipZen/Preview Content\"";
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		23D3EEF22D58E56200D1D8E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen";
+			};
+			name = Debug;
+		};
+		23D3EEF32D58E56200D1D8E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen";
+			};
+			name = Release;
+		};
+		23D3EEF52D58E56200D1D8E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZenUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ClipZen;
+			};
+			name = Debug;
+		};
+		23D3EEF62D58E56200D1D8E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP93WQS7K7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mss.ClipZenUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ClipZen;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23D3EEC22D58E56100D1D8E0 /* Build configuration list for PBXProject "ClipZen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23D3EEEC2D58E56200D1D8E0 /* Debug */,
+				23D3EEED2D58E56200D1D8E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23D3EEEE2D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23D3EEEF2D58E56200D1D8E0 /* Debug */,
+				23D3EEF02D58E56200D1D8E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23D3EEF12D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23D3EEF22D58E56200D1D8E0 /* Debug */,
+				23D3EEF32D58E56200D1D8E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23D3EEF42D58E56200D1D8E0 /* Build configuration list for PBXNativeTarget "ClipZenUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23D3EEF52D58E56200D1D8E0 /* Debug */,
+				23D3EEF62D58E56200D1D8E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 23D3EEBF2D58E56100D1D8E0 /* Project object */;
+}
