@@ -9,7 +9,7 @@ struct PreferencesView: View {
         Form {
             Section {
                 Toggle("Başlangıçta Çalıştır", isOn: $launchAtStartup)
-                    .onChange(of: launchAtStartup) { oldValue, newValue in
+                    .onChange(of: launchAtStartup) { _, newValue in
                         AppSettings.shared.launchAtStartup = newValue
                     }
                 
@@ -17,7 +17,7 @@ struct PreferencesView: View {
                     Text("Pencere Şeffaflığı")
                     HStack {
                         Slider(value: $windowOpacity, in: 0.5...1.0)
-                            .onChange(of: windowOpacity) { oldValue, newValue in
+                            .onChange(of: windowOpacity) { _, newValue in
                                 AppSettings.shared.windowOpacity = newValue
                             }
                         Text("\(Int(windowOpacity * 100))%")
@@ -26,7 +26,7 @@ struct PreferencesView: View {
                 }
                 
                 Toggle("Koyu Tema", isOn: $isDarkMode)
-                    .onChange(of: isDarkMode) { oldValue, newValue in
+                    .onChange(of: isDarkMode) { _, newValue in
                         AppSettings.shared.isDarkMode = newValue
                     }
             }

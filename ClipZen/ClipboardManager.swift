@@ -1,102 +1,166 @@
 import Foundation
 import AppKit
+import CoreData
 
 class ClipboardManager: ObservableObject {
     static let shared = ClipboardManager()
     
-    // Kopyalanan öğeleri tutan dizi
     @Published private(set) var clipboardItems: [ClipboardItem] = []
-    
-    // Pasteboard değişikliklerini izlemek için timer
     private var timer: Timer?
     private var lastChangeCount: Int
+    private let context = CoreDataManager.shared.viewContext
     
     private init() {
+        print("🔄 ClipboardManager başlatılıyor...")
         self.lastChangeCount = NSPasteboard.general.changeCount
+        print("📌 Başlangıç pano sayacı: \(lastChangeCount)")
+        loadSavedItems()
         startMonitoring()
+        print("👀 Pano izleme başlatıldı")
     }
     
-    // Clipboard izlemeyi başlat
+    private func loadSavedItems() {
+        let request = NSFetchRequest<ClipboardItem>(entityName: "ClipboardItem")
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ClipboardItem.timestamp, ascending: false)]
+        
+        do {
+            clipboardItems = try context.fetch(request)
+            print("📚 Kayıtlı öğeler yüklendi - Toplam: \(clipboardItems.count)")
+            
+            // İlk birkaç öğeyi göster
+            for (index, item) in clipboardItems.prefix(3).enumerated() {
+                if item.type == "text",
+                   let content = item.content,
+                   let text = String(data: content, encoding: .utf8) {
+                    print("📝 Öğe \(index + 1): \(text.prefix(30))...")
+                } else if item.type == "file" {
+                    print("📄 Öğe \(index + 1): \(item.filename ?? "isimsiz")")
+                }
+            }
+        } catch {
+            print("❌ Kayıtlı öğeler yüklenirken hata: \(error)")
+        }
+    }
+    
     private func startMonitoring() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             self?.checkForChanges()
         }
     }
     
-    // Clipboard değişikliklerini kontrol et
     private func checkForChanges() {
         let pasteboard = NSPasteboard.general
-        if pasteboard.changeCount != lastChangeCount {
-            lastChangeCount = pasteboard.changeCount
+        guard pasteboard.changeCount != lastChangeCount else { return }
+        
+        lastChangeCount = pasteboard.changeCount
+        print("📋 Pano değişikliği algılandı - changeCount: \(pasteboard.changeCount)")
+        
+        // Önce metin kontrolü yapalım
+        if let text = pasteboard.string(forType: .string) {
+            print("✍️ Metin kopyalandı: \(text.prefix(50))...")
             
-            if let text = pasteboard.string(forType: .string) {
-                addItem(ClipboardItem(type: .text, content: text))
-            } else if let image = pasteboard.data(forType: .tiff) {
-                addItem(ClipboardItem(type: .image, content: image))
+            let item = ClipboardItem(context: context)
+            item.id = UUID()
+            item.timestamp = Date()
+            item.type = "text"
+            
+            if let textData = text.data(using: .utf8) {
+                print("💾 Metin CoreData'ya kaydediliyor - Boyut: \(textData.count) bytes")
+                item.content = textData
+                
+                clipboardItems.insert(item, at: 0)
+                if clipboardItems.count > 50 {
+                    context.delete(clipboardItems.removeLast())
+                }
+                
+                CoreDataManager.shared.saveContext()
+                print("✅ Metin başarıyla kaydedildi")
+            } else {
+                print("❌ Metin data'ya dönüştürülemedi")
             }
         }
-    }
-    
-    // Yeni öğe ekle
-    private func addItem(_ item: ClipboardItem) {
-        DispatchQueue.main.async {
-            // Aynı içeriği tekrar ekleme
-            if !self.clipboardItems.contains(where: { $0.id == item.id }) {
-                self.clipboardItems.insert(item, at: 0)
-                
-                // Maksimum 50 öğe sakla
-                if self.clipboardItems.count > 50 {
-                    self.clipboardItems.removeLast()
+        // Sonra dosya kontrolü yapalım
+        else if let urls = pasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
+            print("📂 Dosya(lar) kopyalandı: \(urls.count) adet")
+            
+            for url in urls.reversed() {
+                do {
+                    let data = try Data(contentsOf: url)
+                    print("📄 Dosya okundu: \(url.lastPathComponent) - Boyut: \(data.count) bytes")
+                    
+                    let item = ClipboardItem(context: context)
+                    item.id = UUID()
+                    item.timestamp = Date()
+                    item.type = "file"
+                    item.content = data
+                    item.filename = url.lastPathComponent
+                    item.fileExtension = url.pathExtension
+                    
+                    print("💾 Dosya CoreData'ya kaydediliyor: \(url.lastPathComponent)")
+                    clipboardItems.insert(item, at: 0)
+                } catch {
+                    print("❌ Dosya kaydedilirken hata: \(error)")
                 }
             }
+            
+            while clipboardItems.count > 50 {
+                if let lastItem = clipboardItems.last {
+                    context.delete(lastItem)
+                    clipboardItems.removeLast()
+                }
+            }
+            
+            CoreDataManager.shared.saveContext()
+            print("✅ Tüm dosyalar başarıyla kaydedildi")
+            
+        } else {
+            print("⚠️ Desteklenmeyen içerik türü")
+            // Panodaki tüm tipleri göster
+            print("📎 Pano içeriği tipleri:")
+            for type in pasteboard.types ?? [] {
+                print("   - \(type)")
+            }
         }
     }
     
-    // Seçilen öğeyi clipboard'a kopyala
     func copyToPasteboard(_ item: ClipboardItem) {
         let pasteboard = NSPasteboard.general
-        // Geçici olarak izlemeyi durdur
         timer?.invalidate()
         
         pasteboard.clearContents()
         
         switch item.type {
-        case .text:
-            if let text = item.content as? String {
+        case "file":
+            if let filename = item.filename,
+               let content = item.content {
+                let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
+                try? content.write(to: tempURL)
+                pasteboard.writeObjects([tempURL as NSURL])
+            }
+        case "text":
+            if let content = item.content,
+               let text = String(data: content, encoding: .utf8) {
                 pasteboard.setString(text, forType: .string)
             }
-        case .image:
-            if let imageData = item.content as? Data {
-                pasteboard.setData(imageData, forType: .tiff)
-            }
+        default:
+            break
         }
         
-        // Son değişiklik sayısını güncelle ve izlemeyi tekrar başlat
         lastChangeCount = pasteboard.changeCount
         startMonitoring()
     }
     
-    // Geçmişi temizle
     func clearHistory() {
-        DispatchQueue.main.async {
-            self.clipboardItems.removeAll()
+        for item in clipboardItems {
+            context.delete(item)
         }
+        clipboardItems.removeAll()
+        CoreDataManager.shared.saveContext()
     }
 }
 
-// Clipboard öğesi modeli
-struct ClipboardItem: Identifiable, Equatable {
-    let id = UUID()
-    let type: ClipboardItemType
-    let content: Any
-    let timestamp = Date()
-    
-    static func == (lhs: ClipboardItem, rhs: ClipboardItem) -> Bool {
-        lhs.id == rhs.id
-    }
-}
+// Bu struct'ı siliyoruz çünkü artık CoreData entity'si kullanıyoruz
+// struct ClipboardItem: Identifiable, Equatable { ... }
 
-enum ClipboardItemType {
-    case text
-    case image
-} 
+// Bu enum'u da artık kullanmıyoruz
+// enum ClipboardItemType { ... } 

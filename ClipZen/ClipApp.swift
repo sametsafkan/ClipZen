@@ -70,7 +70,8 @@ struct ClipApp: App {
     
     // Uygulama başlatıldığında çalışacak kod
     init() {
-        // Menü çubuğu simgesini ayarla
+        // Core Data'yı başlat
+        _ = CoreDataManager.shared
         setupStatusBarItem()
     }
     

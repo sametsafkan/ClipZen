@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		23399B742D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23399B722D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		23D3EEDB2D58E56200D1D8E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23399B732D5A14EF0083D956 /* ClipZenDataModel.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = ClipZenDataModel.xcdatamodel; sourceTree = "<group>"; };
 		23D3EEC72D58E56100D1D8E0 /* ClipZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D3EEDA2D58E56200D1D8E0 /* ClipZenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D3EEE42D58E56200D1D8E0 /* ClipZenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		23D3EEBE2D58E56100D1D8E0 = {
 			isa = PBXGroup;
 			children = (
+				23399B722D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld */,
 				23D3EEC92D58E56100D1D8E0 /* ClipZen */,
 				23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */,
 				23D3EEE72D58E56200D1D8E0 /* ClipZenUITests */,
@@ -236,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23399B742D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +558,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		23399B722D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				23399B732D5A14EF0083D956 /* ClipZenDataModel.xcdatamodel */,
+			);
+			currentVersion = 23399B732D5A14EF0083D956 /* ClipZenDataModel.xcdatamodel */;
+			path = ClipZenDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 23D3EEBF2D58E56100D1D8E0 /* Project object */;
 }
