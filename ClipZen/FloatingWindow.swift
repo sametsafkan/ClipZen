@@ -5,6 +5,7 @@ struct FloatingWindow: View {
     @StateObject private var clipboardManager = ClipboardManager.shared
     @AppStorage("windowOpacity") private var opacity = 0.9
     @Environment(\.dismiss) private var dismiss
+    @State private var showingClearAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -18,9 +19,37 @@ struct FloatingWindow: View {
                 }
             }
             .listStyle(.plain)
+            
+            Divider()
+            
+            // Alt kısımdaki temizleme butonu
+            HStack {
+                Spacer()
+                Button(action: {
+                    showingClearAlert = true
+                }) {
+                    HStack {
+                        Image(systemName: "trash")
+                        Text("Geçmişi Temizle")
+                    }
+                    .foregroundColor(.red)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+            }
+            .background(.background)
         }
         .frame(width: 400, height: 500)
         .opacity(opacity)
+        .alert("Geçmişi Temizle", isPresented: $showingClearAlert) {
+            Button("İptal", role: .cancel) { }
+            Button("Temizle", role: .destructive) {
+                clipboardManager.clearHistory()
+            }
+        } message: {
+            Text("Tüm kopyalama geçmişi silinecek. Bu işlem geri alınamaz.")
+        }
     }
 }
 

@@ -55,6 +55,9 @@ class ClipboardManager: ObservableObject {
     // Seçilen öğeyi clipboard'a kopyala
     func copyToPasteboard(_ item: ClipboardItem) {
         let pasteboard = NSPasteboard.general
+        // Geçici olarak izlemeyi durdur
+        timer?.invalidate()
+        
         pasteboard.clearContents()
         
         switch item.type {
@@ -66,6 +69,17 @@ class ClipboardManager: ObservableObject {
             if let imageData = item.content as? Data {
                 pasteboard.setData(imageData, forType: .tiff)
             }
+        }
+        
+        // Son değişiklik sayısını güncelle ve izlemeyi tekrar başlat
+        lastChangeCount = pasteboard.changeCount
+        startMonitoring()
+    }
+    
+    // Geçmişi temizle
+    func clearHistory() {
+        DispatchQueue.main.async {
+            self.clipboardItems.removeAll()
         }
     }
 }

@@ -75,11 +75,12 @@ struct ClipApp: App {
     }
     
     var body: some Scene {
-        // Ayarlar penceresi artık varsayılan olarak açılmayacak
-        WindowGroup("Kopyalama Geçmişi") {
-            EmptyView()
+        // Boş bir WindowGroup yerine Settings scene'i kullanacağız
+        Settings {
+            PreferencesView()
+                .environmentObject(clipboardManager)
         }
-        .handlesExternalEvents(matching: Set(arrayLiteral: "clipboardHistory"))
+        .windowStyle(.hiddenTitleBar)
         .commands {
             // Kopyalama geçmişi için klavye kısayolu
             CommandGroup(after: .appSettings) {
@@ -89,13 +90,6 @@ struct ClipApp: App {
                 .keyboardShortcut("v", modifiers: [.command, .option])
             }
         }
-        
-        // Ayarlar penceresi için ayrı bir Scene
-        Settings {
-            PreferencesView()
-                .environmentObject(clipboardManager)
-        }
-        .windowStyle(.hiddenTitleBar)
     }
     
     // Menü çubuğu simgesini oluştur
