@@ -1,0 +1,34 @@
+/* Common */
+"ok" = "확인";
+"cancel" = "취소";
+"delete" = "삭제";
+"settings" = "설정";
+"quit" = "종료";
+
+/* Settings */
+"language" = "언어";
+"select_language" = "언어 선택";
+"current_system_language" = "시스템 언어: %@";
+"appearance" = "모양";
+"system" = "시스템";
+"light" = "라이트";
+"dark" = "다크";
+"window_opacity" = "창 투명도";
+"shortcut" = "단축키";
+"show_clipboard_history" = "클립보드 기록 표시";
+"waiting_for_key" = "키 입력 대기 중...";
+"reset_to_defaults" = "기본값으로 재설정";
+"shortcut_error_modifier" = "최소 하나의 보조 키가 필요합니다 (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "잘못된 단축키 조합입니다";
+"shortcut_error_exists" = "이 단축키는 다른 응용 프로그램에서 사용 중입니다";
+"shortcut_error_generic" = "이 단축키를 사용할 수 없습니다 (오류: %d)";
+"none" = "없음";
+
+/* Clipboard History */
+"search" = "검색...";
+"items_count" = "%d개 항목";
+"clear_history" = "기록 지우기";
+"clear_history_message" = "모든 클립보드 기록이 삭제됩니다. 이 작업은 취소할 수 없습니다.";
+"clipboard_history" = "클립보드 기록";
+
+/* ... diğer çeviriler ... */ 

@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "Annuler";
+"delete" = "Supprimer";
+"settings" = "Paramètres";
+"quit" = "Quitter";
+
+/* Settings */
+"language" = "Langue";
+"select_language" = "Sélectionner la langue";
+"current_system_language" = "Langue système : %@";
+"appearance" = "Apparence";
+"system" = "Système";
+"light" = "Clair";
+"dark" = "Sombre";
+"window_opacity" = "Opacité de la fenêtre";
+"shortcut" = "Raccourci";
+"show_clipboard_history" = "Afficher l'historique du presse-papiers";
+"waiting_for_key" = "En attente de touche...";
+"reset_to_defaults" = "Réinitialiser les paramètres";
+"shortcut_error_modifier" = "Au moins une touche de modification (⌘, ⌥, ⌃, ⇧) est requise";
+"shortcut_error_invalid" = "Cette combinaison de touches est invalide";
+"shortcut_error_exists" = "Ce raccourci est déjà utilisé par une autre application";
+"shortcut_error_generic" = "Ce raccourci ne peut pas être utilisé (Erreur: %d)";
+"none" = "Aucun";
+
+/* Clipboard History */
+"search" = "Rechercher...";
+"items_count" = "%d éléments";
+"clear_history" = "Effacer l'historique";
+"clear_history_message" = "Tout l'historique du presse-papiers sera supprimé. Cette action ne peut pas être annulée.";
+"clipboard_history" = "Historique du presse-papiers"; 

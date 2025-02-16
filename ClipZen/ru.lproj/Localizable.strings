@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "Отмена";
+"delete" = "Удалить";
+"settings" = "Настройки";
+"quit" = "Выход";
+
+/* Settings */
+"language" = "Язык";
+"select_language" = "Выберите язык";
+"current_system_language" = "Системный язык: %@";
+"appearance" = "Внешний вид";
+"system" = "Система";
+"light" = "Светлый";
+"dark" = "Тёмный";
+"window_opacity" = "Прозрачность окна";
+"shortcut" = "Сочетание клавиш";
+"show_clipboard_history" = "Показать историю буфера обмена";
+"waiting_for_key" = "Ожидание клавиши...";
+"reset_to_defaults" = "Сбросить настройки";
+"shortcut_error_modifier" = "Требуется хотя бы одна клавиша-модификатор (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "Это сочетание клавиш недействительно";
+"shortcut_error_exists" = "Это сочетание клавиш уже используется другим приложением";
+"shortcut_error_generic" = "Это сочетание клавиш не может быть использовано (Ошибка: %d)";
+"none" = "Нет";
+
+/* Clipboard History */
+"search" = "Поиск...";
+"items_count" = "%d элементов";
+"clear_history" = "Очистить историю";
+"clear_history_message" = "Вся история буфера обмена будет удалена. Это действие нельзя отменить.";
+"clipboard_history" = "История буфера обмена"; 

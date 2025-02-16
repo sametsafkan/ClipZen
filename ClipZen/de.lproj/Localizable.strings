@@ -5,11 +5,10 @@
 "settings" = "Einstellungen";
 "quit" = "Beenden";
 
-/* Main Menu */
-"clipboard_history" = "Zwischenablage-Verlauf";
-"clear_history" = "Verlauf löschen";
-
 /* Settings */
+"language" = "Sprache";
+"select_language" = "Sprache auswählen";
+"current_system_language" = "Systemsprache: %@";
 "appearance" = "Erscheinungsbild";
 "system" = "System";
 "light" = "Hell";
@@ -19,13 +18,15 @@
 "show_clipboard_history" = "Zwischenablage-Verlauf anzeigen";
 "waiting_for_key" = "Warte auf Tasteneingabe...";
 "reset_to_defaults" = "Auf Standardwerte zurücksetzen";
-"shortcut_error_modifier" = "Mindestens eine Zusatztaste (⌘, ⌥, ⌃, ⇧) ist erforderlich";
+"shortcut_error_modifier" = "Mindestens eine Sondertaste (⌘, ⌥, ⌃, ⇧) erforderlich";
 "shortcut_error_invalid" = "Diese Tastenkombination ist ungültig";
 "shortcut_error_exists" = "Dieses Tastenkürzel wird bereits von einer anderen Anwendung verwendet";
-"shortcut_error_unknown" = "Dieses Tastenkürzel kann nicht verwendet werden (Fehler: %d)";
+"shortcut_error_generic" = "Dieses Tastenkürzel kann nicht verwendet werden (Fehler: %d)";
+"none" = "Keine";
 
 /* Clipboard History */
-"search_placeholder" = "Zwischenablage-Verlauf durchsuchen...";
-"clear_history_title" = "Verlauf löschen";
+"search" = "Suchen...";
+"items_count" = "%d Einträge";
+"clear_history" = "Verlauf löschen";
 "clear_history_message" = "Der gesamte Zwischenablage-Verlauf wird gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
-"clear" = "Löschen"; 
+"clipboard_history" = "Zwischenablage-Verlauf"; 

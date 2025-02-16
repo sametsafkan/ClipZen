@@ -4,7 +4,7 @@ import SwiftUI
 import Carbon
 
 
-class AppSettings {
+class AppSettings: ObservableObject {
     static let shared = AppSettings()
     
     private let defaults = UserDefaults.standard
@@ -17,34 +17,23 @@ class AppSettings {
         static let language = "language"
     }
     
-    // Dil ayarı
-    var language: Language {
-        get {
-            if let savedLanguage = defaults.string(forKey: Keys.language),
-               let lang = Language(rawValue: savedLanguage) {
-                return lang
-            }
-            return Language.systemDefault
-        }
-        set {
-            defaults.set(newValue.rawValue, forKey: Keys.language)
-            NotificationCenter.default.post(name: .languageChanged, object: newValue)
-            updateLocalization(to: newValue)
+    @AppStorage("windowOpacity") var opacity: Double = 0.9 {
+        didSet {
+            objectWillChange.send()
         }
     }
     
-    private func updateLocalization(to language: Language) {
-        if language == .system {
-            // Sistem dilini kullan
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-        } else {
-            // Seçilen dili kullan
-            if let languageBundle = Bundle.main.path(forResource: language.rawValue, ofType: "lproj"),
-               let bundle = Bundle(path: languageBundle) {
-                UserDefaults.standard.set([language.rawValue], forKey: "AppleLanguages")
-                UserDefaults.standard.synchronize()
-                Bundle.main.loadAndSetBundle(bundle)
-            }
+    @AppStorage("themeMode") var themeMode: ThemeMode = .system {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+    
+    @Published var language: Language {
+        didSet {
+            // Dil değiştiğinde LocalizationManager'ı güncelle
+            LocalizationManager.shared.setLanguage(language)
+            updateAppearance(isDark: isDarkMode)
         }
     }
     
@@ -57,12 +46,6 @@ class AppSettings {
         }
     }
     
-    // Pencere şeffaflığı (0.5-1.0 arası)
-    var windowOpacity: Double {
-        get { defaults.double(forKey: Keys.windowOpacity) }
-        set { defaults.set(newValue, forKey: Keys.windowOpacity) }
-    }
-    
     // Tema ayarı
     var isDarkMode: Bool {
         get { defaults.bool(forKey: Keys.isDarkMode) }
@@ -73,9 +56,12 @@ class AppSettings {
     }
     
     private init() {
-        // Varsayılan değerleri ayarla
-        if defaults.object(forKey: Keys.windowOpacity) == nil {
-            defaults.set(0.9, forKey: Keys.windowOpacity)
+        // Kaydedilmiş dili yükle veya varsayılan olarak sistem dilini kullan
+        if let savedLanguage = UserDefaults.standard.string(forKey: "language"),
+           let lang = Language(rawValue: savedLanguage) {
+            language = lang
+        } else {
+            language = Language.systemLanguage
         }
     }
     

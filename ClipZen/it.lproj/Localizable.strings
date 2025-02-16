@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "Annulla";
+"delete" = "Elimina";
+"settings" = "Impostazioni";
+"quit" = "Esci";
+
+/* Settings */
+"language" = "Lingua";
+"select_language" = "Seleziona lingua";
+"current_system_language" = "Lingua di sistema: %@";
+"appearance" = "Aspetto";
+"system" = "Sistema";
+"light" = "Chiaro";
+"dark" = "Scuro";
+"window_opacity" = "Opacità finestra";
+"shortcut" = "Scorciatoia";
+"show_clipboard_history" = "Mostra cronologia appunti";
+"waiting_for_key" = "In attesa del tasto...";
+"reset_to_defaults" = "Ripristina impostazioni predefinite";
+"shortcut_error_modifier" = "È richiesto almeno un tasto modificatore (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "Questa combinazione di tasti non è valida";
+"shortcut_error_exists" = "Questa scorciatoia è già in uso da un'altra applicazione";
+"shortcut_error_generic" = "Questa scorciatoia non può essere utilizzata (Errore: %d)";
+"none" = "Nessuno";
+
+/* Clipboard History */
+"search" = "Cerca...";
+"items_count" = "%d elementi";
+"clear_history" = "Cancella cronologia";
+"clear_history_message" = "Tutta la cronologia degli appunti verrà eliminata. Questa azione non può essere annullata.";
+"clipboard_history" = "Cronologia degli appunti"; 

@@ -5,11 +5,10 @@
 "settings" = "Settings";
 "quit" = "Quit";
 
-/* Main Menu */
-"clipboard_history" = "Clipboard History";
-"clear_history" = "Clear History";
-
 /* Settings */
+"language" = "Language";
+"select_language" = "Select Language";
+"current_system_language" = "System Language: %@";
 "appearance" = "Appearance";
 "system" = "System";
 "light" = "Light";
@@ -22,10 +21,15 @@
 "shortcut_error_modifier" = "At least one modifier key (⌘, ⌥, ⌃, ⇧) is required";
 "shortcut_error_invalid" = "This shortcut combination is invalid";
 "shortcut_error_exists" = "This shortcut is already in use by another application";
-"shortcut_error_unknown" = "This shortcut cannot be used (Error: %d)";
+"shortcut_error_generic" = "This shortcut cannot be used (Error: %d)";
+"none" = "None";
 
 /* Clipboard History */
-"search_placeholder" = "Search clipboard history...";
-"clear_history_title" = "Clear History";
+"search" = "Search...";
+"items_count" = "%d items";
+"clear_history" = "Clear History";
 "clear_history_message" = "All clipboard history will be deleted. This action cannot be undone.";
-"clear" = "Clear"; 
+"clipboard_history" = "Clipboard History";
+
+/* Newly added translations */
+"clipboard_history" = "Clipboard History"; 

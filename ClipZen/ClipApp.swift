@@ -6,88 +6,99 @@ import Carbon
 struct ClipZen: App {
     // Ana uygulama durumunu yöneten state object
     @StateObject private var clipboardManager = ClipboardManager.shared
+    @StateObject private var hotKeyManager = HotKeyManager.shared
     
-    // Klavye monitörünü saklamak için bir sınıf oluşturuyoruz
-    class KeyboardMonitor {
-        private var eventHandler: EventHandlerRef?
-        private var hotKeyRef: EventHotKeyRef?
-        private let eventHandlerCallback: EventHandlerUPP
-        
-        init() {
-            print("⌨️ Klavye kısayolları ayarlanıyor...")
-            
-            // Event handler callback'i oluştur
-            eventHandlerCallback = { _, eventRef, _ -> OSStatus in
-                if let eventRef = eventRef {
-                    var hotKeyID = EventHotKeyID()
-                    GetEventParameter(
-                        eventRef,
-                        UInt32(kEventParamDirectObject),
-                        UInt32(typeEventHotKeyID),
-                        nil,
-                        MemoryLayout<EventHotKeyID>.size,
-                        nil,
-                        &hotKeyID
-                    )
-                    
-                    DispatchQueue.main.async {
-                        FloatingWindowManager.shared.showWindow()
-                    }
-                }
-                return noErr
-            }
-            
-            // Kısayol değişikliklerini dinle
-            NotificationCenter.default.addObserver(
-                forName: AppConstants.shortcutChangedNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] notification in
-                if let newShortcut = notification.object as? ShortcutKey {
-                    self?.updateShortcut(newShortcut)
-                }
-            }
-            
-            setupShortcut()
+    var body: some Scene {
+        Settings {
+            EmptyView()
+        }
+    }
+}
+
+// Hot Key yönetimi için ayrı bir sınıf
+class HotKeyManager: ObservableObject {
+    static let shared = HotKeyManager()
+    
+    private var hotKeyRef: EventHotKeyRef?
+    private var eventHandler: EventHandlerRef?
+    private let hotKeyID = EventHotKeyID(signature: 0x5A4E_4C43, id: 1)
+    private var keyboardEventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: OSType(kEventHotKeyPressed))
+    
+    @Published private(set) var currentShortcut: ShortcutKey
+    @Published var shortcutError: String?
+    @Published var isRecordingShortcut = false
+    
+    private let statusItem: NSStatusItem
+    
+    private init() {
+        // Kaydedilmiş kısayolu yükle
+        if let shortcutData = UserDefaults.standard.data(forKey: "shortcutKey"),
+           let savedShortcut = try? JSONDecoder().decode(ShortcutKey.self, from: shortcutData) {
+            currentShortcut = savedShortcut
+        } else {
+            currentShortcut = ShortcutKey.default
         }
         
-        deinit {
-            cleanup()
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        if let button = statusItem.button {
+            button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "ClipZen")
+            button.image?.isTemplate = true
         }
         
-        private func cleanup() {
-            if let handler = eventHandler {
-                RemoveEventHandler(handler)
-                eventHandler = nil
-            }
-            if let hotKey = hotKeyRef {
-                UnregisterEventHotKey(hotKey)
-                hotKeyRef = nil
-            }
+        setupStatusBarMenu()
+        setupHotKey()
+        
+        // Dil değişikliklerini dinle
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(languageDidChange),
+            name: .localizationChanged,
+            object: nil
+        )
+    }
+    
+    private func setupStatusBarMenu() {
+        let menu = NSMenu()
+        
+        // Kopyalama Geçmişi
+        let historyItem = NSMenuItem()
+        historyItem.title = LocalizationManager.shared.localizedString(for: "clipboard_history")
+        historyItem.action = #selector(NSApplication.shared.showClipboardHistory(_:))
+        
+        // Kısayolu ayarla
+        let modifiers = currentShortcut.cocoaModifiers
+        historyItem.keyEquivalentModifierMask = modifiers
+        if let key = KeyCodeMap[Int(currentShortcut.keyCode)] {
+            historyItem.keyEquivalent = key.lowercased()
         }
         
-        private func setupShortcut() {
-            if let shortcutData = UserDefaults.standard.data(forKey: "shortcutKey"),
-               let savedShortcut = try? JSONDecoder().decode(ShortcutKey.self, from: shortcutData) {
-                updateShortcut(savedShortcut)
-            } else {
-                updateShortcut(ShortcutKey.default)
-            }
-        }
+        menu.addItem(historyItem)
+        menu.addItem(NSMenuItem.separator())
         
-        private func updateShortcut(_ shortcut: ShortcutKey) {
-            cleanup()
-            
-            var keyboardEventType = EventTypeSpec(
-                eventClass: OSType(kEventClassKeyboard),
-                eventKind: UInt32(kEventHotKeyPressed)
-            )
-            
-            let hotKeyID = EventHotKeyID(signature: 0x5A4E_4C43, id: 1)
-            
+        // Ayarlar
+        let preferencesItem = NSMenuItem()
+        preferencesItem.title = LocalizationManager.shared.localizedString(for: "settings")
+        preferencesItem.action = #selector(NSApplication.shared.showPreferences(_:))
+        menu.addItem(preferencesItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
+        // Çıkış
+        let quitItem = NSMenuItem()
+        quitItem.title = LocalizationManager.shared.localizedString(for: "quit")
+        quitItem.action = #selector(NSApplication.terminate(_:))
+        quitItem.keyEquivalent = "q"
+        menu.addItem(quitItem)
+        
+        statusItem.menu = menu
+    }
+    
+    private func setupHotKey() {
+        if let shortcutData = UserDefaults.standard.data(forKey: "shortcutKey"),
+           let savedShortcut = try? JSONDecoder().decode(ShortcutKey.self, from: shortcutData) {
             let status = RegisterEventHotKey(
-                shortcut.keyCode,
-                shortcut.modifiers,
+                savedShortcut.keyCode,
+                savedShortcut.modifiers,
                 hotKeyID,
                 GetEventDispatcherTarget(),
                 0,
@@ -95,8 +106,11 @@ struct ClipZen: App {
             )
             
             if status == noErr {
-                print("✅ Yeni kısayol kaydedildi: \(shortcut.keyCode) + \(shortcut.modifiers)")
+                shortcutError = nil
+                currentShortcut = savedShortcut
+                isRecordingShortcut = false
                 
+                // Event handler'ı kaydet
                 let handlerStatus = InstallEventHandler(
                     GetEventDispatcherTarget(),
                     eventHandlerCallback,
@@ -106,124 +120,34 @@ struct ClipZen: App {
                     &eventHandler
                 )
                 
-                if handlerStatus == noErr {
-                    print("✅ Event handler başarıyla kaydedildi")
-                } else {
+                if handlerStatus != noErr {
                     print("❌ Event handler kaydedilemedi: \(handlerStatus)")
                 }
             } else {
-                print("❌ Kısayol kaydedilemedi: \(status)")
+                switch status {
+                case -9868: // kHIErrorInvalidModifiers
+                    shortcutError = LocalizationManager.shared.localizedString(for: "shortcut_error_invalid")
+                case -9870: // kHIErrorHotKeyExists
+                    shortcutError = LocalizationManager.shared.localizedString(for: "shortcut_error_exists")
+                default:
+                    shortcutError = LocalizationManager.shared.localizedString(for: "shortcut_error_unknown")
+                }
             }
         }
     }
     
-    private let keyboardMonitor = KeyboardMonitor()
-    private let statusItem: NSStatusItem
-    
-    // Mevcut kısayolu saklamak için
-    @State private var currentShortcut: ShortcutKey
-    
-    init() {
-        _ = CoreDataManager.shared
-        
-        // Kaydedilmiş kısayolu yükle
-        if let shortcutData = UserDefaults.standard.data(forKey: "shortcutKey"),
-           let savedShortcut = try? JSONDecoder().decode(ShortcutKey.self, from: shortcutData) {
-            _currentShortcut = State(initialValue: savedShortcut)
-        } else {
-            _currentShortcut = State(initialValue: ShortcutKey.default)
-        }
-        
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "ClipZen")
-            button.image?.isTemplate = true
-        }
-        
-        setupStatusBarMenu(with: currentShortcut)
-        
-        // Kısayol değişikliklerini dinle
-        NotificationCenter.default.addObserver(
-            forName: AppConstants.shortcutChangedNotification,
-            object: nil,
-            queue: .main
-        ) { [self] notification in
-            if let newShortcut = notification.object as? ShortcutKey {
-                currentShortcut = newShortcut
-                updateMenuShortcut(newShortcut)
-            }
-        }
-        
-        // Dil değişikliklerini dinle
-        NotificationCenter.default.addObserver(
-            forName: .languageChanged,
-            object: nil,
-            queue: .main
-        ) { [self] _ in
-            updateStatusBarMenu()
+    @objc private func languageDidChange() {
+        DispatchQueue.main.async { [weak self] in
+            self?.setupStatusBarMenu()
         }
     }
     
-    private func updateMenuShortcut(_ shortcut: ShortcutKey) {
-        guard let menu = statusItem.menu else { return }
-        
-        // Kopyalama Geçmişi menü öğesini bul
-        if let historyItem = menu.items.first(where: { $0.title == "Kopyalama Geçmişi" }) {
-            // Modifier'ları ayarla
-            let modifiers = shortcut.cocoaModifiers
-            historyItem.keyEquivalentModifierMask = modifiers
-            
-            // Tuş kodunu karaktere çevir
-            if let key = KeyCodeMap[Int(shortcut.keyCode)] {
-                historyItem.keyEquivalent = key.lowercased()
-            }
+    deinit {
+        if let handler = eventHandler {
+            RemoveEventHandler(handler)
         }
-    }
-    
-    private func updateStatusBarMenu() {
-        setupStatusBarMenu(with: currentShortcut)
-    }
-    
-    private func setupStatusBarMenu(with shortcut: ShortcutKey) {
-        let menu = NSMenu()
-        
-        // Kopyalama Geçmişi
-        let historyItem = NSMenuItem()
-        historyItem.title = LocalizedString("clipboard_history")
-        historyItem.action = #selector(NSApplication.shared.showClipboardHistory(_:))
-        
-        // Kısayolu ayarla
-        let modifiers = shortcut.cocoaModifiers
-        historyItem.keyEquivalentModifierMask = modifiers
-        if let key = KeyCodeMap[Int(shortcut.keyCode)] {
-            historyItem.keyEquivalent = key.lowercased()
-        }
-        
-        menu.addItem(historyItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        // Ayarlar (kısayol olmadan)
-        let preferencesItem = NSMenuItem()
-        preferencesItem.title = "Ayarlar"
-        preferencesItem.action = #selector(NSApplication.shared.showPreferences(_:))
-        menu.addItem(preferencesItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        // Çıkış
-        let quitItem = NSMenuItem()
-        quitItem.title = "Çıkış"
-        quitItem.action = #selector(NSApplication.terminate(_:))
-        quitItem.keyEquivalent = "q"
-        menu.addItem(quitItem)
-        
-        statusItem.menu = menu
-    }
-    
-    var body: some Scene {
-        Settings {
-            EmptyView()
+        if let hotKey = hotKeyRef {
+            UnregisterEventHotKey(hotKey)
         }
     }
 }
@@ -236,4 +160,14 @@ extension NSApplication {
     @objc func showPreferences(_ sender: Any?) {
         SettingsManager.shared.showWindow()
     }
+}
+
+// Event handler callback
+private func eventHandlerCallback(
+    _ nextHandler: EventHandlerCallRef?,
+    _ event: EventRef?,
+    _ userData: UnsafeMutableRawPointer?
+) -> OSStatus {
+    FloatingWindowManager.shared.showWindow()
+    return noErr
 } 

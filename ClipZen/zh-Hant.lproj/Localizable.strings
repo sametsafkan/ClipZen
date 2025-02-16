@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "確定";
+"cancel" = "取消";
+"delete" = "刪除";
+"settings" = "設定";
+"quit" = "結束";
+
+/* Settings */
+"language" = "語言";
+"select_language" = "選擇語言";
+"current_system_language" = "系統語言：%@";
+"appearance" = "外觀";
+"system" = "系統";
+"light" = "淺色";
+"dark" = "深色";
+"window_opacity" = "視窗透明度";
+"shortcut" = "快速鍵";
+"show_clipboard_history" = "顯示剪貼簿歷史";
+"waiting_for_key" = "等待按鍵...";
+"reset_to_defaults" = "重設為預設值";
+"shortcut_error_modifier" = "至少需要一個修飾鍵 (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "此快速鍵組合無效";
+"shortcut_error_exists" = "此快速鍵已被其他應用程式使用";
+"shortcut_error_generic" = "無法使用此快速鍵 (錯誤: %d)";
+"none" = "無";
+
+/* Clipboard History */
+"search" = "搜尋...";
+"items_count" = "%d 個項目";
+"clear_history" = "清除歷史";
+"clear_history_message" = "所有剪貼簿歷史將被刪除。此操作無法復原。";
+"clipboard_history" = "剪貼簿歷史"; 

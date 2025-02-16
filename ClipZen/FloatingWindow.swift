@@ -9,6 +9,7 @@ struct FloatingWindow: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showingClearAlert = false
     @State private var searchText = ""
+    @Environment(\.localizationManager) private var localizationManager
     
     var body: some View {
         VStack(spacing: 0) {
@@ -17,7 +18,7 @@ struct FloatingWindow: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                     .imageScale(.small)
-                TextField("Ara...", text: $searchText)
+                TextField(localizationManager.localizedString(for: "search"), text: $searchText)
                     .textFieldStyle(.plain)
                     .frame(width: 200)
                 
@@ -49,15 +50,18 @@ struct FloatingWindow: View {
             
             // Alt toolbar
             HStack {
-                Text("\(clipboardManager.clipboardItems.count) öğe")
+                Text(localizationManager.localizedString(for: "items_count", clipboardManager.clipboardItems.count))
                     .foregroundColor(.secondary)
                     .font(.caption)
                 
                 Spacer()
                 
                 Button(action: { showingClearAlert = true }) {
-                    Label("Geçmişi Temizle", systemImage: "trash")
-                        .foregroundColor(.red)
+                    Label(
+                        localizationManager.localizedString(for: "clear_history"),
+                        systemImage: "trash"
+                    )
+                    .foregroundColor(.red)
                 }
                 .buttonStyle(.plain)
             }
@@ -71,16 +75,17 @@ struct FloatingWindow: View {
             dismiss()
             return .handled
         }
-        .alert("Geçmişi Temizle", isPresented: $showingClearAlert) {
-            Button("İptal", role: .cancel) { }
-            Button("Temizle", role: .destructive) {
+        .alert(localizationManager.localizedString(for: "clear_history"), isPresented: $showingClearAlert) {
+            Button(localizationManager.localizedString(for: "cancel"), role: .cancel) { }
+            Button(localizationManager.localizedString(for: "delete"), role: .destructive) {
                 withAnimation(.easeInOut) {
                     clipboardManager.clearHistory()
                 }
             }
         } message: {
-            Text("Tüm kopyalama geçmişi silinecek. Bu işlem geri alınamaz.")
+            Text(localizationManager.localizedString(for: "clear_history_message"))
         }
+        .id("floating_window_content_\(localizationManager.currentLanguage.rawValue)")
     }
     
     private var filteredItems: [ClipboardItem] {
@@ -149,57 +154,5 @@ struct ClipboardItemView: View {
                 self.isHovered = isHovered
             }
         }
-    }
-}
-
-// Pencere kontrolcüsü
-class FloatingWindowController: NSWindowController {
-    convenience init() {
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 500),
-            styleMask: [.titled, .closable, .resizable],
-            backing: .buffered,
-            defer: false
-        )
-        window.title = "Kopyalama Geçmişi"
-        window.center()
-        window.contentView = NSHostingView(rootView: FloatingWindow())
-        window.isReleasedWhenClosed = false
-        window.level = .floating
-        window.titlebarAppearsTransparent = true
-        window.backgroundColor = .clear
-        window.isMovableByWindowBackground = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.zoomButton)?.isHidden = true
-        
-        // Minimum boyut
-        window.minSize = NSSize(width: 300, height: 400)
-        
-        self.init(window: window)
-    }
-}
-
-// URL şeması işleyicisi
-class FloatingWindowManager {
-    static let shared = FloatingWindowManager()
-    private var windowController: FloatingWindowController?
-    
-    private init() {
-        print("📱 FloatingWindowManager başlatıldı")
-    }
-    
-    func showWindow() {
-        print("🪟 showWindow çağrıldı")
-        
-        if windowController == nil {
-            print("🆕 Yeni pencere kontrolcüsü oluşturuluyor")
-            windowController = FloatingWindowController()
-        }
-        
-        print("📍 Pencere gösteriliyor")
-        windowController?.showWindow(nil)
-        
-        print("⬆️ Uygulama aktifleştiriliyor")
-        NSApp.activate(ignoringOtherApps: true)
     }
 }

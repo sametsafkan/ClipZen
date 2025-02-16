@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "确定";
+"cancel" = "取消";
+"delete" = "删除";
+"settings" = "设置";
+"quit" = "退出";
+
+/* Settings */
+"language" = "语言";
+"select_language" = "选择语言";
+"current_system_language" = "系统语言：%@";
+"appearance" = "外观";
+"system" = "系统";
+"light" = "浅色";
+"dark" = "深色";
+"window_opacity" = "窗口透明度";
+"shortcut" = "快捷键";
+"show_clipboard_history" = "显示剪贴板历史";
+"waiting_for_key" = "等待按键...";
+"reset_to_defaults" = "重置为默认值";
+"shortcut_error_modifier" = "至少需要一个修饰键 (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "此快捷键组合无效";
+"shortcut_error_exists" = "此快捷键已被其他应用程序使用";
+"shortcut_error_generic" = "无法使用此快捷键 (错误: %d)";
+"none" = "无";
+
+/* Clipboard History */
+"search" = "搜索...";
+"items_count" = "%d 个项目";
+"clear_history" = "清除历史";
+"clear_history_message" = "所有剪贴板历史将被删除。此操作无法撤消。";
+"clipboard_history" = "剪贴板历史"; 

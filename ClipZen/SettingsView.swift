@@ -4,7 +4,8 @@ import Carbon // EventHotKey için gerekli
 struct SettingsView: View {
     @AppStorage("windowOpacity") private var opacity = 0.9
     @AppStorage("themeMode") private var themeMode: ThemeMode = .system
-    @State private var selectedLanguage: Language = AppSettings.shared.language
+    @StateObject private var localizationManager = LocalizationManager.shared
+    @State private var selectedLanguage: Language
     
     // ShortcutKey için özel AppStorage ve State
     @AppStorage("shortcutKey") private var shortcutKeyData: Data = {
@@ -18,6 +19,7 @@ struct SettingsView: View {
     @State private var shortcutError: String? = nil
     
     init() {
+        _selectedLanguage = State(initialValue: LocalizationManager.shared.currentLanguage)
         let decoder = JSONDecoder()
         let defaultShortcut = ShortcutKey.default
         
@@ -33,15 +35,17 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 20) {
             // Tema Seçimi
-            GroupBox(label: Label("Görünüm", systemImage: "paintbrush")) {
+            GroupBox(label: localizedText("appearance", systemImage: "paintbrush")) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Picker("Tema", selection: $themeMode) {
-                        Label("Sistem", systemImage: "circle.lefthalf.filled")
+                    Picker(selection: $themeMode) {
+                        Label(localizationManager.localizedString(for: "system"), systemImage: "circle.lefthalf.filled")
                             .tag(ThemeMode.system)
-                        Label("Açık", systemImage: "sun.max")
+                        Label(localizationManager.localizedString(for: "light"), systemImage: "sun.max")
                             .tag(ThemeMode.light)
-                        Label("Koyu", systemImage: "moon")
+                        Label(localizationManager.localizedString(for: "dark"), systemImage: "moon")
                             .tag(ThemeMode.dark)
+                    } label: {
+                        localizedText("theme")
                     }
                     .pickerStyle(.segmented)
                     .padding(.vertical, 4)
@@ -51,7 +55,7 @@ struct SettingsView: View {
             .groupBoxStyle(TransparentGroupBox())
             
             // Şeffaflık Ayarı
-            GroupBox(label: Label("Pencere Şeffaflığı", systemImage: "slider.horizontal.3")) {
+            GroupBox(label: localizedText("window_opacity", systemImage: "slider.horizontal.3")) {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Slider(value: $opacity, in: 0.5...1.0, step: 0.05)
@@ -67,10 +71,10 @@ struct SettingsView: View {
             .groupBoxStyle(TransparentGroupBox())
             
             // Kısayol Ayarı
-            GroupBox(label: Label("Kısayol", systemImage: "keyboard")) {
+            GroupBox(label: localizedText("shortcut", systemImage: "keyboard")) {
                 VStack(spacing: 8) {
                     HStack {
-                        Text("Kopyalama Geçmişini Göster:")
+                        localizedText("show_clipboard_history")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Button(action: {
@@ -79,7 +83,7 @@ struct SettingsView: View {
                         }) {
                             HStack {
                                 if isRecordingShortcut {
-                                    Text("Tuş bekleniyor...")
+                                    localizedText("waiting_for_key")
                                         .foregroundColor(.secondary)
                                 } else {
                                     Text(formatShortcut(currentShortcut))
@@ -99,13 +103,13 @@ struct SettingsView: View {
                     }
                     
                     if isRecordingShortcut {
-                        Text("Yeni kısayol için tuş kombinasyonuna basın")
+                        localizedText("press_new_shortcut")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
                     
                     if let error = shortcutError {
-                        Text(error)
+                        localizedText(error)
                             .font(.caption)
                             .foregroundColor(.red)
                     }
@@ -115,17 +119,24 @@ struct SettingsView: View {
             .groupBoxStyle(TransparentGroupBox())
             
             // Dil Seçimi
-            GroupBox(label: Label(LocalizedString("language"), systemImage: "globe")) {
+            GroupBox(label: localizedText("language", systemImage: "globe")) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Picker(LocalizedString("select_language"), selection: $selectedLanguage) {
+                    Picker(selection: $selectedLanguage) {
                         ForEach(Language.allCases, id: \.self) { language in
                             Text(language.displayName)
                                 .tag(language)
                         }
+                    } label: {
+                        localizedText("select_language")
                     }
                     .onChange(of: selectedLanguage) { oldValue, newValue in
-                        AppSettings.shared.language = newValue
+                        localizationManager.setLanguage(newValue)
                     }
+                    
+                    // Mevcut sistem dilini göster
+                    localizedText("current_system_language", Language.systemLanguage.displayName)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
                 .padding(8)
             }
@@ -134,12 +145,10 @@ struct SettingsView: View {
             Spacer()
             
             // Saptanmış Değerlere Dön butonu
-            Button(action: {
-                resetToDefaults()
-            }) {
+            Button(action: resetToDefaults) {
                 HStack {
                     Image(systemName: "arrow.counterclockwise")
-                    Text("Saptanmış Değerlere Dön")
+                    localizedText("reset_to_defaults")
                 }
                 .padding(.vertical, 6)
                 .padding(.horizontal, 12)
@@ -161,14 +170,14 @@ struct SettingsView: View {
         .preferredColorScheme(themeMode.colorScheme)
         .onChange(of: themeMode) { oldValue, newValue in
             withAnimation(.easeInOut(duration: 0.2)) {
-                if let window = NSApp.windows.first(where: { $0.title == "Ayarlar" }) {
+                if let window = NSApp.windows.first(where: { $0.title == localizationManager.localizedString(for: "settings") }) {
                     window.appearance = newValue == .dark ? .init(named: .darkAqua) : .init(named: .aqua)
                 }
             }
         }
         .onChange(of: opacity) { oldValue, newValue in
             withAnimation(.easeInOut(duration: 0.2)) {
-                if let window = NSApp.windows.first(where: { $0.title == "Ayarlar" }) {
+                if let window = NSApp.windows.first(where: { $0.title == localizationManager.localizedString(for: "settings") }) {
                     window.alphaValue = newValue
                 }
             }
@@ -181,11 +190,12 @@ struct SettingsView: View {
             if let encoded = try? JSONEncoder().encode(newValue) {
                 shortcutKeyData = encoded
                 NotificationCenter.default.post(
-                    name: AppConstants.shortcutChangedNotification,
+                    name: .shortcutChanged,
                     object: newValue
                 )
             }
         }
+        .id("settings_view_\(localizationManager.currentLanguage.rawValue)")
     }
     
     private func handleKeyEvent(_ event: NSEvent) {
@@ -208,7 +218,7 @@ struct SettingsView: View {
         
         // En az bir modifier tuşu gerekli
         if modifiers.isEmpty {
-            shortcutError = "En az bir özel tuş (⌘, ⌥, ⌃, ⇧) gerekli"
+            shortcutError = localizationManager.localizedString(for: "shortcut_error_modifier")
             return
         }
         
@@ -241,11 +251,11 @@ struct SettingsView: View {
         } else {
             switch status {
             case -9868: // kHIErrorInvalidModifiers
-                shortcutError = "Bu kısayol kombinasyonu geçersiz"
+                shortcutError = localizationManager.localizedString(for: "shortcut_error_invalid")
             case -9870: // kHIErrorHotKeyExists
-                shortcutError = "Bu kısayol başka bir uygulama tarafından kullanılıyor"
+                shortcutError = localizationManager.localizedString(for: "shortcut_error_exists")
             default:
-                shortcutError = "Bu kısayol kullanılamıyor (Hata: \(status))"
+                shortcutError = localizationManager.localizedString(for: "shortcut_error_generic", status)
             }
         }
     }
@@ -266,12 +276,12 @@ struct SettingsView: View {
         
         // Eğer hiç modifier yoksa "Yok" göster
         if description.isEmpty {
-            description = "Yok"
+            description = localizationManager.localizedString(for: "none")
         }
         
         // Tuş kodunu ekle
         if let key = KeyCodeMap[Int(shortcut.keyCode)] {
-            if description != "Yok" {
+            if description != localizationManager.localizedString(for: "none") {
                 description += key
             } else {
                 description = key
@@ -284,7 +294,8 @@ struct SettingsView: View {
     private func resetToDefaults() {
         themeMode = .system
         opacity = 0.9
-        selectedLanguage = .system
+        // Dili sistem diline sıfırla
+        selectedLanguage = Language.systemLanguage
         // Kısayolu sıfırla
         let defaultShortcut = ShortcutKey.default
         updateShortcut(defaultShortcut)
@@ -292,7 +303,7 @@ struct SettingsView: View {
         // Animasyonlu geçiş için küçük bir gecikme
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             // Pencereyi sallayarak geri bildirim ver
-            if let window = NSApp.windows.first(where: { $0.title == "Ayarlar" }) {
+            if let window = NSApp.windows.first(where: { $0.title == localizationManager.localizedString(for: "settings") }) {
                 window.performShakeAnimation()
             }
         }
@@ -302,52 +313,6 @@ struct SettingsView: View {
 // Notification için extension
 extension Notification.Name {
     static let shortcutChanged = Notification.Name("shortcutChanged")
-}
-
-// Ayarlar penceresi kontrolcüsü
-class SettingsWindowController: NSWindowController {
-    convenience init() {
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 350, height: 300),
-            styleMask: [.titled, .closable],
-            backing: .buffered,
-            defer: false
-        )
-        window.title = "Ayarlar"
-        window.center()
-        window.contentView = NSHostingView(rootView: SettingsView())
-        window.isReleasedWhenClosed = false
-        window.level = .floating
-        window.titlebarAppearsTransparent = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.zoomButton)?.isHidden = true
-        
-        // ESC tuşu için
-        if let closeButton = window.standardWindowButton(.closeButton) {
-            closeButton.target = window
-            closeButton.action = #selector(NSWindow.close)
-            closeButton.keyEquivalent = "\u{1b}" // ESC tuşu
-        }
-        
-        self.init(window: window)
-    }
-}
-
-// Ayarlar penceresi yöneticisi
-class SettingsManager {
-    static let shared = SettingsManager()
-    private var windowController: SettingsWindowController?
-    
-    private init() {}
-    
-    func showWindow() {
-        if windowController == nil {
-            windowController = SettingsWindowController()
-        }
-        
-        windowController?.showWindow(nil)
-        NSApp.activate(ignoringOtherApps: true)
-    }
 }
 
 // Pencere sallama animasyonu için extension
@@ -411,6 +376,21 @@ struct VisualEffectView: NSViewRepresentable {
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
         nsView.material = material
         nsView.blendingMode = blendingMode
+    }
+}
+
+// View builder extension
+extension SettingsView {
+    func localizedText(_ key: String, systemImage: String) -> some View {
+        Label {
+            Text(LocalizationManager.shared.localizedString(for: key))
+        } icon: {
+            Image(systemName: systemImage)
+        }
+    }
+    
+    func localizedText(_ key: String, _ args: CVarArg...) -> some View {
+        Text(LocalizationManager.shared.localizedString(for: key, args))
     }
 } 
 

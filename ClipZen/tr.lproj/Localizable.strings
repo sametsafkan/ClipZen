@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "Tamam";
+"cancel" = "İptal";
+"delete" = "Sil";
+"settings" = "Ayarlar";
+"quit" = "Çıkış";
+
+/* Settings */
+"language" = "Dil";
+"select_language" = "Dil Seçin";
+"current_system_language" = "Sistem Dili: %@";
+"appearance" = "Görünüm";
+"system" = "Sistem";
+"light" = "Açık";
+"dark" = "Koyu";
+"window_opacity" = "Pencere Şeffaflığı";
+"shortcut" = "Kısayol";
+"show_clipboard_history" = "Kopyalama Geçmişini Göster";
+"waiting_for_key" = "Tuş bekleniyor...";
+"reset_to_defaults" = "Varsayılan Ayarlara Dön";
+"shortcut_error_modifier" = "En az bir özel tuş (⌘, ⌥, ⌃, ⇧) gerekli";
+"shortcut_error_invalid" = "Bu kısayol kombinasyonu geçersiz";
+"shortcut_error_exists" = "Bu kısayol başka bir uygulama tarafından kullanılıyor";
+"shortcut_error_generic" = "Bu kısayol kullanılamıyor (Hata: %d)";
+"none" = "Yok";
+
+/* Clipboard History */
+"search" = "Ara...";
+"items_count" = "%d öğe";
+"clear_history" = "Geçmişi Temizle";
+"clear_history_message" = "Tüm kopyalama geçmişi silinecek. Bu işlem geri alınamaz.";
+"clipboard_history" = "Kopyalama Geçmişi"; 

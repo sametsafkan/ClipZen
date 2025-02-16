@@ -20,7 +20,7 @@ class KeyboardShortcuts {
     
     private func handleKeyEvent(_ event: NSEvent) {
         // cmd + v kısayolu için kontrol
-        if event.modifierFlags.contains(.command) && 
+        if event.modifierFlags.contains(.command) &&
            event.keyCode == kVK_ANSI_V {
             // En son kopyalanan öğeyi yapıştır
             if let lastItem = clipboardManager?.clipboardItems.first {
@@ -29,10 +29,10 @@ class KeyboardShortcuts {
         }
         
         // cmd + shift + v kısayolu için kontrol
-        if event.modifierFlags.contains(.command) && 
-           event.modifierFlags.contains(.shift) && 
+        if event.modifierFlags.contains(.command) &&
+           event.modifierFlags.contains(.shift) &&
            event.keyCode == kVK_ANSI_V {
             FloatingWindowManager.shared.showWindow()
         }
     }
-} 
+}

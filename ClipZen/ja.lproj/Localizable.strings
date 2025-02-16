@@ -1,0 +1,32 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "キャンセル";
+"delete" = "削除";
+"settings" = "設定";
+"quit" = "終了";
+
+/* Settings */
+"language" = "言語";
+"select_language" = "言語を選択";
+"current_system_language" = "システム言語：%@";
+"appearance" = "外観";
+"system" = "システム";
+"light" = "ライト";
+"dark" = "ダーク";
+"window_opacity" = "ウィンドウの透明度";
+"shortcut" = "ショートカット";
+"show_clipboard_history" = "クリップボード履歴を表示";
+"waiting_for_key" = "キー入力待ち...";
+"reset_to_defaults" = "デフォルトにリセット";
+"shortcut_error_modifier" = "修飾キーが必要です (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "このショートカットの組み合わせは無効です";
+"shortcut_error_exists" = "このショートカットは他のアプリケーションで使用されています";
+"shortcut_error_generic" = "このショートカットは使用できません (エラー: %d)";
+"none" = "なし";
+
+/* Clipboard History */
+"search" = "検索...";
+"items_count" = "%d 項目";
+"clear_history" = "履歴を消去";
+"clear_history_message" = "クリップボード履歴がすべて削除されます。この操作は取り消せません。";
+"clipboard_history" = "クリップボード履歴"; 

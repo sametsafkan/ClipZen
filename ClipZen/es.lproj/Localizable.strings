@@ -1,0 +1,35 @@
+/* Common */
+"ok" = "Aceptar";
+"cancel" = "Cancelar";
+"delete" = "Eliminar";
+"settings" = "Ajustes";
+"quit" = "Salir";
+
+/* Settings */
+"language" = "Idioma";
+"select_language" = "Seleccionar idioma";
+"current_system_language" = "Idioma del sistema: %@";
+"appearance" = "Apariencia";
+"system" = "Sistema";
+"light" = "Claro";
+"dark" = "Oscuro";
+"window_opacity" = "Opacidad de la ventana";
+"shortcut" = "Atajo";
+"show_clipboard_history" = "Mostrar historial del portapapeles";
+"waiting_for_key" = "Esperando tecla...";
+"reset_to_defaults" = "Restablecer valores predeterminados";
+"shortcut_error_modifier" = "Se requiere al menos una tecla modificadora (⌘, ⌥, ⌃, ⇧)";
+"shortcut_error_invalid" = "Esta combinación de teclas no es válida";
+"shortcut_error_exists" = "Este atajo ya está en uso por otra aplicación";
+"shortcut_error_generic" = "Este atajo no se puede usar (Error: %d)";
+"none" = "Ninguno";
+
+/* Clipboard History */
+"search" = "Buscar...";
+"items_count" = "%d elementos";
+"clear_history" = "Borrar historial";
+"clear_history_message" = "Se eliminará todo el historial del portapapeles. Esta acción no se puede deshacer.";
+"clipboard_history" = "Historial del portapapeles";
+
+/* New translations */
+"clipboard_history" = "Historial del portapapeles"; 
