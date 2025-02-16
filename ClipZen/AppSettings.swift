@@ -23,11 +23,7 @@ class AppSettings: ObservableObject {
         }
     }
     
-    @AppStorage("themeMode") var themeMode: ThemeMode = .system {
-        didSet {
-            objectWillChange.send()
-        }
-    }
+    @AppStorage("themeMode") private var themeMode: ThemeMode = .system
     
     @Published var language: Language {
         didSet {
@@ -76,21 +72,6 @@ class AppSettings: ObservableObject {
             NSApp.appearance = NSAppearance(named: isDark ? .darkAqua : .aqua)
         }
     } 
-}
-
-// MARK: - Theme Mode
-enum ThemeMode: String, CaseIterable {
-    case system
-    case light
-    case dark
-    
-    var colorScheme: ColorScheme? {
-        switch self {
-        case .system: return nil
-        case .light: return .light
-        case .dark: return .dark
-        }
-    }
 }
 
 // MARK: - Shortcut Key

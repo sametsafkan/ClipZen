@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "Este atajo ya está en uso por otra aplicación";
 "shortcut_error_generic" = "Este atajo no se puede usar (Error: %d)";
 "none" = "Ninguno";
+"theme" = "Tema";
 
 /* Clipboard History */
 "search" = "Buscar...";

@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "このショートカットは他のアプリケーションで使用されています";
 "shortcut_error_generic" = "このショートカットは使用できません (エラー: %d)";
 "none" = "なし";
+"theme" = "テーマ";
 
 /* Clipboard History */
 "search" = "検索...";

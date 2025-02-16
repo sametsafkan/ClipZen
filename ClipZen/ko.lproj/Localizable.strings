@@ -31,4 +31,5 @@
 "clear_history_message" = "모든 클립보드 기록이 삭제됩니다. 이 작업은 취소할 수 없습니다.";
 "clipboard_history" = "클립보드 기록";
 
-/* ... diğer çeviriler ... */ 
+/* ... diğer çeviriler ... */
+"theme" = "테마"; 

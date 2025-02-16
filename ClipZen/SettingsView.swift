@@ -33,10 +33,20 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 24) {
             // Tema Seçimi
-            GroupBox(label: localizedText("appearance", systemImage: "paintbrush")) {
-                VStack(alignment: .leading, spacing: 12) {
+            GroupBox {
+                VStack(alignment: .leading, spacing: 16) {
+                    Label {
+                        Text(localizationManager.localizedString(for: "appearance"))
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: "paintbrush")
+                            .foregroundStyle(.blue)
+                    }
+                    .padding(.bottom, 4)
+                    
                     Picker(selection: $themeMode) {
                         Label(localizationManager.localizedString(for: "system"), systemImage: "circle.lefthalf.filled")
                             .tag(ThemeMode.system)
@@ -45,129 +55,167 @@ struct SettingsView: View {
                         Label(localizationManager.localizedString(for: "dark"), systemImage: "moon")
                             .tag(ThemeMode.dark)
                     } label: {
-                        localizedText("theme")
+                        Text(localizationManager.localizedString(for: "theme"))
                     }
                     .pickerStyle(.segmented)
-                    .padding(.vertical, 4)
+                    .padding(.horizontal, 2)
                 }
-                .padding(8)
+                .padding(16)
             }
-            .groupBoxStyle(TransparentGroupBox())
+            .groupBoxStyle(PremiumGroupBox())
             
             // Şeffaflık Ayarı
-            GroupBox(label: localizedText("window_opacity", systemImage: "slider.horizontal.3")) {
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
+            GroupBox {
+                VStack(alignment: .leading, spacing: 16) {
+                    Label {
+                        Text(localizationManager.localizedString(for: "window_opacity"))
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: "slider.horizontal.3")
+                            .foregroundStyle(.purple)
+                    }
+                    .padding(.bottom, 4)
+                    
+                    HStack(spacing: 16) {
                         Slider(value: $opacity, in: 0.5...1.0, step: 0.05)
-                            .tint(.accentColor)
+                            .tint(.purple)
+                        
                         Text("\(Int(opacity * 100))%")
                             .monospacedDigit()
+                            .foregroundStyle(.secondary)
                             .frame(width: 45, alignment: .trailing)
                     }
-                    .padding(.vertical, 4)
                 }
-                .padding(8)
+                .padding(16)
             }
-            .groupBoxStyle(TransparentGroupBox())
+            .groupBoxStyle(PremiumGroupBox())
             
             // Kısayol Ayarı
-            GroupBox(label: localizedText("shortcut", systemImage: "keyboard")) {
-                VStack(spacing: 8) {
+            GroupBox {
+                VStack(alignment: .leading, spacing: 16) {
+                    Label {
+                        Text(localizationManager.localizedString(for: "shortcut"))
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: "keyboard")
+                            .foregroundStyle(.green)
+                    }
+                    .padding(.bottom, 4)
+                    
                     HStack {
-                        localizedText("show_clipboard_history")
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(localizationManager.localizedString(for: "show_clipboard_history"))
+                            .foregroundStyle(.secondary)
+                        
+                        Spacer()
                         
                         Button(action: {
                             isRecordingShortcut.toggle()
                             shortcutError = nil
                         }) {
-                            HStack {
-                                if isRecordingShortcut {
-                                    localizedText("waiting_for_key")
-                                        .foregroundColor(.secondary)
-                                } else {
-                                    Text(formatShortcut(currentShortcut))
-                                }
-                            }
-                            .frame(width: 150)
-                            .padding(.vertical, 4)
-                            .background(Color(nsColor: .controlBackgroundColor))
-                            .cornerRadius(6)
+                            Text(isRecordingShortcut ? 
+                                 localizationManager.localizedString(for: "waiting_for_key") :
+                                 formatShortcut(currentShortcut))
+                                .frame(width: 150)
+                                .padding(.vertical, 6)
+                                .background(.ultraThinMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(isRecordingShortcut ? Color.accentColor : Color.secondary.opacity(0.2), 
+                                               lineWidth: 1)
+                                )
                         }
                         .buttonStyle(.plain)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(isRecordingShortcut ? Color.accentColor : Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-                        .focusable(false)
-                    }
-                    
-                    if isRecordingShortcut {
-                        localizedText("press_new_shortcut")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
                     }
                     
                     if let error = shortcutError {
-                        localizedText(error)
+                        Text(error)
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                 }
-                .padding(8)
+                .padding(16)
             }
-            .groupBoxStyle(TransparentGroupBox())
+            .groupBoxStyle(PremiumGroupBox())
             
             // Dil Seçimi
-            GroupBox(label: localizedText("language", systemImage: "globe")) {
-                VStack(alignment: .leading, spacing: 8) {
+            GroupBox {
+                VStack(alignment: .leading, spacing: 16) {
+                    Label {
+                        Text(localizationManager.localizedString(for: "language"))
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                    } icon: {
+                        Image(systemName: "globe")
+                            .foregroundStyle(.orange)
+                    }
+                    .padding(.bottom, 4)
+                    
                     Picker(selection: $selectedLanguage) {
                         ForEach(Language.allCases, id: \.self) { language in
                             Text(language.displayName)
                                 .tag(language)
                         }
                     } label: {
-                        localizedText("select_language")
+                        Text(localizationManager.localizedString(for: "select_language"))
                     }
                     .onChange(of: selectedLanguage) { oldValue, newValue in
                         localizationManager.setLanguage(newValue)
                     }
                     
-                    // Mevcut sistem dilini göster
-                    localizedText("current_system_language", Language.systemLanguage.displayName)
+                    Text(localizationManager.localizedString(for: "current_system_language", 
+                         Language.systemLanguage.displayName))
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
-                .padding(8)
+                .padding(16)
             }
-            .groupBoxStyle(TransparentGroupBox())
+            .groupBoxStyle(PremiumGroupBox())
             
             Spacer()
             
             // Saptanmış Değerlere Dön butonu
             Button(action: resetToDefaults) {
-                HStack {
+                Label {
+                    Text(localizationManager.localizedString(for: "reset_to_defaults"))
+                        .foregroundStyle(.secondary)
+                } icon: {
                     Image(systemName: "arrow.counterclockwise")
-                    localizedText("reset_to_defaults")
+                        .foregroundStyle(.secondary)
                 }
-                .padding(.vertical, 6)
-                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
                 .background(.ultraThinMaterial)
-                .cornerRadius(8)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             .buttonStyle(.plain)
-            .foregroundColor(.secondary)
+            .padding(.bottom, 8)
         }
-        .padding()
-        .frame(width: 350, height: 350)
-        .background(
+        .padding(20)
+        .frame(width: 460)
+        .background {
             ZStack {
                 Color(nsColor: .windowBackgroundColor)
-                VisualEffectView(material: .hudWindow, blendingMode: .behindWindow)
+                    .opacity(0.8)
+                
+                if themeMode.colorScheme == .dark {
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.7),
+                            Color(nsColor: .windowBackgroundColor).opacity(0.8)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+                
+                Rectangle()
+                    .fill(.ultraThinMaterial)
             }
-        )
-        .opacity(opacity)
-        .preferredColorScheme(themeMode.colorScheme)
+        }
+        .environment(\.colorScheme, themeMode.colorScheme)
         .onChange(of: themeMode) { oldValue, newValue in
             withAnimation(.easeInOut(duration: 0.2)) {
                 if let window = NSApp.windows.first(where: { $0.title == localizationManager.localizedString(for: "settings") }) {
@@ -342,21 +390,43 @@ extension NSWindow {
     }
 }
 
-// Şeffaf GroupBox stili
-struct TransparentGroupBox: GroupBoxStyle {
+// Premium GroupBox stili
+struct PremiumGroupBox: GroupBoxStyle {
+    @Environment(\.colorScheme) var colorScheme
+    
     func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .leading) {
-            configuration.label
-                .font(.headline)
-                .foregroundColor(.secondary)
-            
+        VStack(alignment: .leading, spacing: 0) {
             configuration.content
-                .frame(maxWidth: .infinity)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.ultraThinMaterial)
-                )
         }
+        .frame(maxWidth: .infinity)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(colorScheme == .dark ? 
+                          Color.black.opacity(0.3) : 
+                          Color.white.opacity(0.3))
+                
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.ultraThinMaterial)
+                
+                // Subtle border
+                RoundedRectangle(cornerRadius: 12)
+                    .strokeBorder(
+                        colorScheme == .dark ?
+                        Color.white.opacity(0.1) :
+                        Color.black.opacity(0.1),
+                        lineWidth: 0.5
+                    )
+            }
+        )
+        .shadow(
+            color: colorScheme == .dark ?
+            .black.opacity(0.2) :
+            .black.opacity(0.1),
+            radius: 8,
+            x: 0,
+            y: 2
+        )
     }
 }
 
@@ -391,6 +461,16 @@ extension SettingsView {
     
     func localizedText(_ key: String, _ args: CVarArg...) -> some View {
         Text(LocalizationManager.shared.localizedString(for: key, args))
+    }
+}
+
+// Label stilleri için extension
+extension Label where Title == Text, Icon == Image {
+    func premiumLabelStyle() -> some View {
+        self
+            .font(.headline)
+            .foregroundStyle(.primary)
+            .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
     }
 } 
 

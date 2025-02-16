@@ -23,16 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2A67A094-B045-4F9F-BA0C-EB72764BB210"
-            shouldBeEnabled = "Yes"
+            uuid = "3C2712CF-D2A2-42A4-85F6-9E21164BD60A"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClipZen/Language.swift"
+            filePath = "ClipZen/FloatingWindow.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "systemLanguage"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>

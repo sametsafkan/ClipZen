@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "此快速鍵已被其他應用程式使用";
 "shortcut_error_generic" = "無法使用此快速鍵 (錯誤: %d)";
 "none" = "無";
+"theme" = "主題";
 
 /* Clipboard History */
 "search" = "搜尋...";

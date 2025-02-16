@@ -4,6 +4,7 @@
 "delete" = "Supprimer";
 "settings" = "Paramètres";
 "quit" = "Quitter";
+"theme" = "Thème";
 
 /* Settings */
 "language" = "Langue";

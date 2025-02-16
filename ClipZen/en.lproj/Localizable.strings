@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "This shortcut is already in use by another application";
 "shortcut_error_generic" = "This shortcut cannot be used (Error: %d)";
 "none" = "None";
+"theme" = "Theme";
 
 /* Clipboard History */
 "search" = "Search...";

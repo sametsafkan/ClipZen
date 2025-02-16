@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "此快捷键已被其他应用程序使用";
 "shortcut_error_generic" = "无法使用此快捷键 (错误: %d)";
 "none" = "无";
+"theme" = "主题";
 
 /* Clipboard History */
 "search" = "搜索...";

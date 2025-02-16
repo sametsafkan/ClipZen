@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "Questa scorciatoia è già in uso da un'altra applicazione";
 "shortcut_error_generic" = "Questa scorciatoia non può essere utilizzata (Errore: %d)";
 "none" = "Nessuno";
+"theme" = "Tema";
 
 /* Clipboard History */
 "search" = "Cerca...";

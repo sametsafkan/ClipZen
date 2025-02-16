@@ -23,6 +23,7 @@
 "shortcut_error_exists" = "Dieses Tastenkürzel wird bereits von einer anderen Anwendung verwendet";
 "shortcut_error_generic" = "Dieses Tastenkürzel kann nicht verwendet werden (Fehler: %d)";
 "none" = "Keine";
+"theme" = "Thema";
 
 /* Clipboard History */
 "search" = "Suchen...";

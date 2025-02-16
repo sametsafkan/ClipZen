@@ -4,6 +4,7 @@
 "delete" = "Sil";
 "settings" = "Ayarlar";
 "quit" = "Çıkış";
+"theme" = "Tema";
 
 /* Settings */
 "language" = "Dil";
