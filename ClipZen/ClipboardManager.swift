@@ -27,8 +27,8 @@ class ClipboardManager: ObservableObject {
             clipboardItems = try context.fetch(request)
             print("📚 Kayıtlı öğeler yüklendi - Toplam: \(clipboardItems.count)")
             
-            // İlk birkaç öğeyi göster
-            for (index, item) in clipboardItems.prefix(3).enumerated() {
+            // Tüm öğeleri göster
+            for (index, item) in clipboardItems.enumerated() {
                 if item.type == "text",
                    let content = item.content,
                    let text = String(data: content, encoding: .utf8) {
@@ -36,16 +36,74 @@ class ClipboardManager: ObservableObject {
                 } else if item.type == "file" {
                     print("📄 Öğe \(index + 1): \(item.filename ?? "isimsiz")")
                 }
+                print("   🆔 ID: \(item.id?.uuidString ?? "nil")")
+                print("    Timestamp: \(item.timestamp?.description ?? "nil")")
+                print("   📊 Type: \(item.type ?? "nil")")
             }
         } catch {
-            print("❌ Kayıtlı öğeler yüklenirken hata: \(error)")
+            print("❌ Kayıtlı öğeler yüklenirken hata: \(error.localizedDescription)")
+            print("🔍 Hata detayı: \(error)")
         }
     }
     
     private func startMonitoring() {
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             self?.checkForChanges()
         }
+    }
+    
+    fileprivate func checkText(_ types: [NSPasteboard.PasteboardType], _ pasteboard: NSPasteboard) {
+        // Metin kontrolü
+        if types.contains(.string) {
+            if let text = pasteboard.string(forType: .string) {
+                print("✍️ Metin kopyalandı: \(text.prefix(50))...")
+                
+                let item = ClipboardItem(context: context)
+                item.id = UUID()
+                item.timestamp = Date()
+                item.type = "text"
+                
+                if let textData = text.data(using: .utf8) {
+                    item.content = textData
+                    clipboardItems.insert(item, at: 0)
+                    try? context.save()
+                    print("✅ Metin kaydedildi")
+                }
+            }
+        }
+    }
+    
+    fileprivate func checkFiles(_ pasteboard: NSPasteboard) -> Bool {
+        // Dosya kontrolü
+        if let urls = pasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
+            print("📂 Dosya(lar) kopyalandı: \(urls.count) adet")
+            
+            if urls.count > 0 {
+                // Her dosya için ayrı kayıt oluştur
+                for url in urls {
+                    do {
+                        let data = try Data(contentsOf: url)
+                        let item = ClipboardItem(context: context)
+                        item.id = UUID()
+                        item.timestamp = Date()
+                        item.type = "file"
+                        item.content = data
+                        item.filename = url.lastPathComponent
+                        item.fileExtension = url.pathExtension
+                        
+                        clipboardItems.insert(item, at: 0)
+                        print("✅ Dosya kaydedildi: \(url.lastPathComponent)")
+                    } catch {
+                        print("❌ Dosya kaydedilirken hata: \(error)")
+                    }
+                }
+                
+                try? context.save()
+                return true
+            }
+        }
+        return false
     }
     
     private func checkForChanges() {
@@ -53,79 +111,30 @@ class ClipboardManager: ObservableObject {
         guard pasteboard.changeCount != lastChangeCount else { return }
         
         lastChangeCount = pasteboard.changeCount
-        print("📋 Pano değişikliği algılandı - changeCount: \(pasteboard.changeCount)")
+        print("📋 Pano değişikliği algılandı - changeCount: \(lastChangeCount)")
         
-        // Önce metin kontrolü yapalım
-        if let text = pasteboard.string(forType: .string) {
-            print("✍️ Metin kopyalandı: \(text.prefix(50))...")
-            
-            let item = ClipboardItem(context: context)
-            item.id = UUID()
-            item.timestamp = Date()
-            item.type = "text"
-            
-            if let textData = text.data(using: .utf8) {
-                print("💾 Metin CoreData'ya kaydediliyor - Boyut: \(textData.count) bytes")
-                item.content = textData
-                
-                clipboardItems.insert(item, at: 0)
-                if clipboardItems.count > 50 {
-                    context.delete(clipboardItems.removeLast())
-                }
-                
-                CoreDataManager.shared.saveContext()
-                print("✅ Metin başarıyla kaydedildi")
-            } else {
-                print("❌ Metin data'ya dönüştürülemedi")
+        // Panodaki tüm tipleri kontrol et
+        let types = pasteboard.types ?? []
+        print("📎 Pano içeriği tipleri: \(types)")
+        
+        if checkFiles(pasteboard) == false {
+            checkText(types, pasteboard)
+        }
+        
+        // Maksimum öğe sayısını kontrol et
+        while clipboardItems.count > 50 {
+            if let lastItem = clipboardItems.last {
+                context.delete(lastItem)
+                clipboardItems.removeLast()
             }
         }
-        // Sonra dosya kontrolü yapalım
-        else if let urls = pasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
-            print("📂 Dosya(lar) kopyalandı: \(urls.count) adet")
-            
-            for url in urls.reversed() {
-                do {
-                    let data = try Data(contentsOf: url)
-                    print("📄 Dosya okundu: \(url.lastPathComponent) - Boyut: \(data.count) bytes")
-                    
-                    let item = ClipboardItem(context: context)
-                    item.id = UUID()
-                    item.timestamp = Date()
-                    item.type = "file"
-                    item.content = data
-                    item.filename = url.lastPathComponent
-                    item.fileExtension = url.pathExtension
-                    
-                    print("💾 Dosya CoreData'ya kaydediliyor: \(url.lastPathComponent)")
-                    clipboardItems.insert(item, at: 0)
-                } catch {
-                    print("❌ Dosya kaydedilirken hata: \(error)")
-                }
-            }
-            
-            while clipboardItems.count > 50 {
-                if let lastItem = clipboardItems.last {
-                    context.delete(lastItem)
-                    clipboardItems.removeLast()
-                }
-            }
-            
-            CoreDataManager.shared.saveContext()
-            print("✅ Tüm dosyalar başarıyla kaydedildi")
-            
-        } else {
-            print("⚠️ Desteklenmeyen içerik türü")
-            // Panodaki tüm tipleri göster
-            print("📎 Pano içeriği tipleri:")
-            for type in pasteboard.types ?? [] {
-                print("   - \(type)")
-            }
-        }
+        
+        try? context.save()
     }
     
     func copyToPasteboard(_ item: ClipboardItem) {
         let pasteboard = NSPasteboard.general
-        timer?.invalidate()
+        timer?.invalidate() // Geçici olarak izlemeyi durdur
         
         pasteboard.clearContents()
         
@@ -134,20 +143,43 @@ class ClipboardManager: ObservableObject {
             if let filename = item.filename,
                let content = item.content {
                 let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
-                try? content.write(to: tempURL)
-                pasteboard.writeObjects([tempURL as NSURL])
+                do {
+                    try content.write(to: tempURL)
+                    if pasteboard.writeObjects([tempURL as NSURL]) {
+                        print("✅ Dosya panoya kopyalandı: \(filename)")
+                    } else {
+                        print("❌ Dosya panoya kopyalanamadı")
+                    }
+                } catch {
+                    print("❌ Dosya yazılırken hata: \(error)")
+                }
             }
+            
         case "text":
             if let content = item.content,
                let text = String(data: content, encoding: .utf8) {
-                pasteboard.setString(text, forType: .string)
+                if pasteboard.setString(text, forType: .string) {
+                    print("✅ Metin panoya kopyalandı")
+                } else {
+                    print("❌ Metin panoya kopyalanamadı")
+                }
             }
+            
         default:
-            break
+            print("⚠️ Bilinmeyen tip: \(item.type ?? "nil")")
         }
         
         lastChangeCount = pasteboard.changeCount
-        startMonitoring()
+        startMonitoring() // İzlemeyi tekrar başlat
+    }
+    
+    func deleteItem(_ item: ClipboardItem) {
+        if let index = clipboardItems.firstIndex(of: item) {
+            context.delete(item)
+            clipboardItems.remove(at: index)
+            try? context.save()
+            print("🗑️ Öğe silindi")
+        }
     }
     
     func clearHistory() {
@@ -155,7 +187,8 @@ class ClipboardManager: ObservableObject {
             context.delete(item)
         }
         clipboardItems.removeAll()
-        CoreDataManager.shared.saveContext()
+        try? context.save()
+        print("🧹 Geçmiş temizlendi")
     }
 }
 
@@ -163,4 +196,4 @@ class ClipboardManager: ObservableObject {
 // struct ClipboardItem: Identifiable, Equatable { ... }
 
 // Bu enum'u da artık kullanmıyoruz
-// enum ClipboardItemType { ... } 
+// enum ClipboardItemType { ... }

@@ -1,0 +1,31 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "Cancel";
+"delete" = "Delete";
+"settings" = "Settings";
+"quit" = "Quit";
+
+/* Main Menu */
+"clipboard_history" = "Clipboard History";
+"clear_history" = "Clear History";
+
+/* Settings */
+"appearance" = "Appearance";
+"system" = "System";
+"light" = "Light";
+"dark" = "Dark";
+"window_opacity" = "Window Opacity";
+"shortcut" = "Shortcut";
+"show_clipboard_history" = "Show Clipboard History";
+"waiting_for_key" = "Waiting for key...";
+"reset_to_defaults" = "Reset to Defaults";
+"shortcut_error_modifier" = "At least one modifier key (⌘, ⌥, ⌃, ⇧) is required";
+"shortcut_error_invalid" = "This shortcut combination is invalid";
+"shortcut_error_exists" = "This shortcut is already in use by another application";
+"shortcut_error_unknown" = "This shortcut cannot be used (Error: %d)";
+
+/* Clipboard History */
+"search_placeholder" = "Search clipboard history...";
+"clear_history_title" = "Clear History";
+"clear_history_message" = "All clipboard history will be deleted. This action cannot be undone.";
+"clear" = "Clear"; 

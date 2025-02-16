@@ -1,0 +1,31 @@
+/* Common */
+"ok" = "OK";
+"cancel" = "Abbrechen";
+"delete" = "Löschen";
+"settings" = "Einstellungen";
+"quit" = "Beenden";
+
+/* Main Menu */
+"clipboard_history" = "Zwischenablage-Verlauf";
+"clear_history" = "Verlauf löschen";
+
+/* Settings */
+"appearance" = "Erscheinungsbild";
+"system" = "System";
+"light" = "Hell";
+"dark" = "Dunkel";
+"window_opacity" = "Fenster-Transparenz";
+"shortcut" = "Tastenkürzel";
+"show_clipboard_history" = "Zwischenablage-Verlauf anzeigen";
+"waiting_for_key" = "Warte auf Tasteneingabe...";
+"reset_to_defaults" = "Auf Standardwerte zurücksetzen";
+"shortcut_error_modifier" = "Mindestens eine Zusatztaste (⌘, ⌥, ⌃, ⇧) ist erforderlich";
+"shortcut_error_invalid" = "Diese Tastenkombination ist ungültig";
+"shortcut_error_exists" = "Dieses Tastenkürzel wird bereits von einer anderen Anwendung verwendet";
+"shortcut_error_unknown" = "Dieses Tastenkürzel kann nicht verwendet werden (Fehler: %d)";
+
+/* Clipboard History */
+"search_placeholder" = "Zwischenablage-Verlauf durchsuchen...";
+"clear_history_title" = "Verlauf löschen";
+"clear_history_message" = "Der gesamte Zwischenablage-Verlauf wird gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
+"clear" = "Löschen"; 
