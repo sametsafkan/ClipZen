@@ -2,11 +2,10 @@
 //  ClipZenTests.swift
 //  ClipZenTests
 //
-//  Created by Samet Safkan on 9.02.2025.
+//  Created by Samet Safkan on 17.02.2025.
 //
 
 import Testing
-@testable import ClipZen
 
 struct ClipZenTests {
 

@@ -57,7 +57,8 @@ struct FloatingWindow: View {
             ScrollView {
                 LazyVStack(spacing: 8) {
                     ForEach(filteredItems) { item in
-                        ClipboardItemView(item: item, onDelete: deleteItem)
+                        ClipboardItemView(item: item)
+                            .environmentObject(clipboardManager)
                             .transition(.opacity)
                     }
                 }
@@ -150,76 +151,124 @@ struct FloatingWindow: View {
             return item.filename?.localizedCaseInsensitiveContains(searchText) ?? false
         }
     }
-    
-    private func deleteItem(_ item: ClipboardItem) {
-        withAnimation {
-            clipboardManager.deleteItem(item)
-        }
-    }
 }
 
 struct ClipboardItemView: View {
     let item: ClipboardItem
-    let onDelete: (ClipboardItem) -> Void
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var clipboardManager: ClipboardManager
     
     var itemType: ClipboardItemType {
         ClipboardItemType(rawValue: item.type ?? "") ?? .text
     }
     
-    var preview: String {
-        if let content = item.content,
-           let text = String(data: content, encoding: .utf8) {
-            return text
-        }
-        if let filename = item.filename {
-            return filename
-        }
-        return "No preview available"
-    }
-    
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .center, spacing: 12) {
             // İkon
-            itemType.icon
-                .foregroundStyle(itemType.color)
-                .frame(width: 24, height: 24)
+            Group {
+                if item.type == "text" {
+                    Image(systemName: "doc.text.fill")
+                        .foregroundStyle(.blue)
+                } else if item.type == "file" {
+                    Image(systemName: getSystemImage(for: item.fileExtension ?? ""))
+                        .foregroundStyle(getIconColor(for: item.fileExtension ?? ""))
+                }
+            }
+            .font(.title2)
+            .frame(width: 24, height: 24)
             
             // İçerik
-            VStack(alignment: .leading, spacing: 4) {
-                Text(preview)
-                    .lineLimit(3)
-                    .foregroundStyle(.primary)
+            if item.type == "text",
+               let content = item.content,
+               let text = String(data: content, encoding: .utf8) {
+                Text(text)
+                    .lineLimit(2)
+                    .truncationMode(.tail)
+            } else if item.type == "file" {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.filename ?? "Dosya")
+                        .lineLimit(1)
+                    if let ext = item.fileExtension {
+                        Text(ext.uppercased())
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             
-            // Silme butonu
-            Button(action: { onDelete(item) }) {
-                Image(systemName: "xmark")
-                    .foregroundStyle(.secondary)
-                    .frame(width: 24, height: 24)
+            Spacer()
+            
+            // Butonlar
+            HStack(spacing: 12) {
+                // Kopyala butonu
+                Button(action: {
+                    clipboardManager.copyToPasteboard(item)
+                    dismiss()
+                }) {
+                    Image(systemName: "doc.on.doc")
+                        .foregroundColor(.accentColor)
+                        .frame(width: 20, height: 20)
+                }
+                .buttonStyle(.plain)
+                .help("Panoya Kopyala")
+                
+                // Sil butonu
+                Button(action: {
+                    clipboardManager.deleteItem(item)
+                }) {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                        .frame(width: 20, height: 20)
+                }
+                .buttonStyle(.plain)
+                .help("Sil")
             }
-            .buttonStyle(.plain)
-            .opacity(0.7)
+            .padding(.leading, 8)
         }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThinMaterial)
-                .opacity(colorScheme == .dark ? 0.7 : 0.5)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.primary.opacity(0.05), lineWidth: 0.5)
-        )
-        .shadow(
-            color: colorScheme == .dark ?
-            .black.opacity(0.2) :
-            .black.opacity(0.1),
-            radius: 4,
-            x: 0,
-            y: 2
-        )
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            clipboardManager.copyToPasteboard(item)
+            dismiss()
+        }
+        .background(Color(NSColor.textBackgroundColor).opacity(0.01))
+        .cornerRadius(6)
+    }
+    
+    private func getSystemImage(for fileExtension: String) -> String {
+        switch fileExtension.lowercased() {
+        case "pdf":
+            return "doc.fill"
+        case "txt", "rtf", "md":
+            return "doc.text.fill"
+        case "jpg", "jpeg", "png", "gif", "heic":
+            return "photo.fill"
+        case "mp4", "mov", "avi":
+            return "film.fill"
+        case "mp3", "wav", "m4a":
+            return "music.note.fill"
+        default:
+            return "doc.fill"
+        }
+    }
+    
+    private func getIconColor(for fileExtension: String) -> Color {
+        switch fileExtension.lowercased() {
+        case "pdf":
+            return .red
+        case "txt", "rtf", "md":
+            return .blue
+        case "jpg", "jpeg", "png", "gif", "heic":
+            return .green
+        case "mp4", "mov", "avi":
+            return .purple
+        case "mp3", "wav", "m4a":
+            return .pink
+        default:
+            return .gray
+        }
     }
 }
 
