@@ -1,33 +1,36 @@
 /* Common */
-"ok" = "Tamam";
-"cancel" = "İptal";
-"delete" = "Sil";
-"settings" = "Ayarlar";
-"quit" = "Çıkış";
-"theme" = "Tema";
+"ok" = "OK";
+"cancel" = "Cancel";
+"delete" = "Delete";
+"settings" = "Settings";
+"quit" = "Quit";
 
 /* Settings */
-"language" = "Dil";
-"select_language" = "Dil Seçin";
-"current_system_language" = "Sistem Dili: %@";
-"appearance" = "Görünüm";
-"system" = "Sistem";
-"light" = "Açık";
-"dark" = "Koyu";
-"window_opacity" = "Pencere Şeffaflığı";
-"shortcut" = "Kısayol";
-"show_clipboard_history" = "Kopyalama Geçmişini Göster";
-"waiting_for_key" = "Tuş bekleniyor...";
-"reset_to_defaults" = "Varsayılan Ayarlara Dön";
-"shortcut_error_modifier" = "En az bir özel tuş (⌘, ⌥, ⌃, ⇧) gerekli";
-"shortcut_error_invalid" = "Bu kısayol kombinasyonu geçersiz";
-"shortcut_error_exists" = "Bu kısayol başka bir uygulama tarafından kullanılıyor";
-"shortcut_error_generic" = "Bu kısayol kullanılamıyor (Hata: %d)";
-"none" = "Yok";
+"language" = "Language";
+"select_language" = "Select Language";
+"current_system_language" = "System Language: %@";
+"appearance" = "Appearance";
+"system" = "System";
+"light" = "Light";
+"dark" = "Dark";
+"window_opacity" = "Window Opacity";
+"shortcut" = "Shortcut";
+"show_clipboard_history" = "Show Clipboard History";
+"waiting_for_key" = "Waiting for key...";
+"reset_to_defaults" = "Reset to Defaults";
+"shortcut_error_modifier" = "At least one modifier key (⌘, ⌥, ⌃, ⇧) is required";
+"shortcut_error_invalid" = "This shortcut combination is invalid";
+"shortcut_error_exists" = "This shortcut is already in use by another application";
+"shortcut_error_generic" = "This shortcut cannot be used (Error: %d)";
+"none" = "None";
+"theme" = "Theme";
 
 /* Clipboard History */
-"search" = "Ara...";
-"items_count" = "%d öğe";
-"clear_history" = "Geçmişi Temizle";
-"clear_history_message" = "Tüm kopyalama geçmişi silinecek. Bu işlem geri alınamaz.";
-"clipboard_history" = "Kopyalama Geçmişi"; 
+"search" = "Search...";
+"items_count" = "%d items";
+"clear_history" = "Clear History";
+"clear_history_message" = "All clipboard history will be deleted. This action cannot be undone.";
+"clipboard_history" = "Clipboard History";
+
+/* Newly added translations */
+"clipboard_history" = "Clipboard History"; 
