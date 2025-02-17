@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		23399B742D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23399B722D5A14EF0083D956 /* ClipZenDataModel.xcdatamodeld */; };
+		23474FAA2D63C4D800D5BC9C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; };
+		23474FAB2D63C4D800D5BC9C /* XCTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		23474FAD2D63C52E00D5BC9C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; };
+		23474FAE2D63C52E00D5BC9C /* XCTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		23474FB02D63C53800D5BC9C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; };
+		23474FB12D63C53800D5BC9C /* XCTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23474FA92D63C4D800D5BC9C /* XCTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,12 +33,74 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		23474FAC2D63C4D800D5BC9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				23474FAB2D63C4D800D5BC9C /* XCTest.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23474FAF2D63C52E00D5BC9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				23474FAE2D63C52E00D5BC9C /* XCTest.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23474FB22D63C53800D5BC9C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				23474FB12D63C53800D5BC9C /* XCTest.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		23399B732D5A14EF0083D956 /* ClipZenDataModel.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = ClipZenDataModel.xcdatamodel; sourceTree = "<group>"; };
+		23474FA92D63C4D800D5BC9C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		23D3EEC72D58E56100D1D8E0 /* ClipZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D3EEDA2D58E56200D1D8E0 /* ClipZenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D3EEE42D58E56200D1D8E0 /* ClipZenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipZenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		23474FA62D63734700D5BC9C /* Exceptions for "ClipZenTests" folder in "ClipZen" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ClipboardManagerTests.swift,
+				FloatingWindowTests.swift,
+				Info.plist,
+				LocalizationTests.swift,
+				ThemeModeTests.swift,
+			);
+			target = 23D3EEC62D58E56100D1D8E0 /* ClipZen */;
+		};
+		23474FA72D63734700D5BC9C /* Exceptions for "ClipZenTests" folder in "ClipZenTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ClipboardManagerTests.swift,
+				FloatingWindowTests.swift,
+				Info.plist,
+				LocalizationTests.swift,
+				ThemeModeTests.swift,
+			);
+			target = 23D3EED92D58E56200D1D8E0 /* ClipZenTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		23D3EEC92D58E56100D1D8E0 /* ClipZen */ = {
@@ -42,6 +110,10 @@
 		};
 		23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				23474FA62D63734700D5BC9C /* Exceptions for "ClipZenTests" folder in "ClipZen" target */,
+				23474FA72D63734700D5BC9C /* Exceptions for "ClipZenTests" folder in "ClipZenTests" target */,
+			);
 			path = ClipZenTests;
 			sourceTree = "<group>";
 		};
@@ -57,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23474FAD2D63C52E00D5BC9C /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23474FB02D63C53800D5BC9C /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,12 +145,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23474FAA2D63C4D800D5BC9C /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23474FA82D63C4D800D5BC9C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23474FA92D63C4D800D5BC9C /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		23D3EEBE2D58E56100D1D8E0 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +167,7 @@
 				23D3EEC92D58E56100D1D8E0 /* ClipZen */,
 				23D3EEDD2D58E56200D1D8E0 /* ClipZenTests */,
 				23D3EEE72D58E56200D1D8E0 /* ClipZenUITests */,
+				23474FA82D63C4D800D5BC9C /* Frameworks */,
 				23D3EEC82D58E56100D1D8E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,6 +192,7 @@
 				23D3EEC32D58E56100D1D8E0 /* Sources */,
 				23D3EEC42D58E56100D1D8E0 /* Frameworks */,
 				23D3EEC52D58E56100D1D8E0 /* Resources */,
+				23474FAF2D63C52E00D5BC9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,6 +215,7 @@
 				23D3EED62D58E56200D1D8E0 /* Sources */,
 				23D3EED72D58E56200D1D8E0 /* Frameworks */,
 				23D3EED82D58E56200D1D8E0 /* Resources */,
+				23474FB22D63C53800D5BC9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -153,6 +239,7 @@
 				23D3EEE02D58E56200D1D8E0 /* Sources */,
 				23D3EEE12D58E56200D1D8E0 /* Frameworks */,
 				23D3EEE22D58E56200D1D8E0 /* Resources */,
+				23474FAC2D63C4D800D5BC9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -193,7 +280,7 @@
 				};
 			};
 			buildConfigurationList = 23D3EEC22D58E56100D1D8E0 /* Build configuration list for PBXProject "ClipZen" */;
-			developmentRegion = en;
+			developmentRegion = tr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -324,6 +411,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = XCTest;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -387,6 +476,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = XCTest;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -417,6 +508,7 @@
 				DEVELOPMENT_TEAM = BP93WQS7K7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -445,6 +537,7 @@
 				DEVELOPMENT_TEAM = BP93WQS7K7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -467,6 +560,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BP93WQS7K7;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -474,7 +568,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen/ClipZenTests";
 			};
 			name = Debug;
 		};
@@ -485,6 +579,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BP93WQS7K7;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -492,7 +587,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipZen.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClipZen/ClipZenTests";
 			};
 			name = Release;
 		};
